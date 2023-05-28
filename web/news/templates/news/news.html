@@ -1,0 +1,10 @@
+{% extends 'main/layout.html' %}
+{% block title %}новости{% endblock %}
+{% block body %}
+    <h1>контент страницы новости</h1>
+      <form class="form-control" id="form-bg" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" id="btn-bg" type="submit">Oтправить</button>
+      </form>
+{% endblock %}

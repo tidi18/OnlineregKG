@@ -1,0 +1,17 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="web_site.competitions.models.Competitions.objects" />
+          <option value="django.forms.*" />
+          <option value="web_site.users.views.RegistrationUser.get_user_context" />
+          <option value="web_site.users.models.Profile.objects" />
+          <option value="web_site.main.views.slug" />
+          <option value="django.db.models.PhoneNumberField" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -1,0 +1,12 @@
+{% extends 'main/layout.html' %}
+{% block title %}контакты{% endblock %}
+{% block body %}
+        <h1>Форма обратной связи</h1>
+        <div class="control-form container-fluid" id="">
+          <form class="form-control" id="form-bg" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary" id="btn-bg" type="submit">Oтправить</button>
+          </form>
+        </div> 
+{% endblock %}

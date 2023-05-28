@@ -1,0 +1,17 @@
+{% extends 'main/layout.html' %}
+{% block title %}Профиль{% endblock %}
+{% block body %}
+  <div class="container" id="profile">
+    <div id="profile-title">
+      <h1>Профиль пользователя</h1>
+    </div>
+    {% if profile.Photo %}
+      <img id="profile-photo" src="{{ profile.Photo.url }}" alt="Фото профиля">
+    {% else %}
+      <p>Фото профиля отсутствует</p>
+    {% endif %}
+    <p>Имя пользователя: {{ profile.user.username }}</p>
+    <p>Email: {{ profile.user.email }}</p>
+    <p>Дата рождения: {{ profile.date_of_birth }}</p> 
+  </div>
+{% endblock %}

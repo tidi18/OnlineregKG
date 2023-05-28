@@ -1,0 +1,267 @@
+body {
+	background-image: url(../img/rough-horn-ge477d8ee5_1920.jpg);
+	background-repeat: no-repeat;
+	background-size: cover; 
+	margin: 0;
+}
+
+#containerbg {
+	color: white;
+	margin: 70px;
+	
+	
+}
+
+#nav {
+	opacity: 0.8;
+	padding: 0px 0px;
+}
+
+#bg-nav {
+	background-color: #0047AB;
+	padding: 4px;
+}
+
+#a-link-home {
+	color: white;
+	margin: 0 0 0 5px;
+}
+
+#a-link {
+	color: white;
+	margin:0 0 0 15px;
+
+}
+
+#a-link-user {
+	color: white;
+	margin: 0;
+}
+
+#a-link-logout {
+	margin: 0;
+	color: white;
+
+}
+
+
+#a-linkbg{
+	margin: 10px 0px 0px 2px;
+	padding: 8px 8px;
+
+}
+
+#a-linkbg:hover {
+	border-radius: 1px 10px;
+	border-color: #0047AB;
+} 
+
+#dop-menu {
+	color: white;
+}
+
+#nav-icon {
+	color: white;
+
+}
+
+#form-bg {
+	background-color: white;
+	opacity: 0.8;
+}
+
+
+#btn-bg {
+	background-color: #0047AB;
+	border-color: #0047AB;
+	border-radius: 1px 10px;
+	transition: 0.7s;
+}
+
+#btn-bg:hover {
+	border-radius: 10px 1px;
+}
+
+#main-title {
+	color: #0047AB;
+}
+
+#main-item {
+	background-color:white;
+	opacity: 0.7;
+	border-radius: 10px 10px;
+	padding: 10px 10px;
+	margin: 0px -8px;
+}
+
+#main-p {
+	color: black;
+	width: 100%;
+}
+
+#link-competitions {
+	text-decoration: none;
+	background-color: #0047AB;
+	color: white;
+	padding: 5px 5px;
+	border-radius: 5px 5px;
+	transition:  0.7s;
+}
+
+#link-competitions:hover{
+	border-radius: 10px 10px;
+}
+
+#btn-p {
+	margin: 10px 0px; 
+}
+
+
+#footer {
+	position: fixed;
+	bottom: 0;
+	background-color: #0047AB;
+	width: 100%;
+	opacity: 0.9;
+}
+
+#detail-bg {
+	background-color: white;
+	opacity: 0.8;
+	border-radius: 10px 10px;
+	padding: 5px 5px;
+	color: #0047AB;
+}
+
+#competition-date {
+	width: 15%;
+	
+
+}
+
+#competition-announcement {
+	padding: 15px 15px;
+
+}
+
+#competition-illustration {
+  max-width: 100%;
+  height: auto;
+  float: right;
+  margin-top:4% ;
+  
+}
+
+#competition-organizer {
+      
+}
+
+
+#illustration-organizer {
+	display: flex;
+
+}
+
+#table-members {
+	width: 100%;
+}
+
+#comment-div {
+	text-align: center;
+}
+
+
+#comment-text {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0047AB;
+	padding: 10vh;
+	border-radius: 10px 10px;
+}
+
+#table-members-div {
+	margin-bottom: 5vh;
+}
+
+#table-competitions {
+	background-color:white;
+	opacity: 0.8;
+	color: #0047AB;
+	border-radius: 5px 5px;
+}
+
+#table-competitions-nav {
+	background-color:#0047AB;
+	color: white;
+}
+
+
+#table-news-div {
+	margin-top:10vh;
+}
+
+#table-news {
+	background-color:white;
+	opacity: 0.8;
+	color: #0047AB;
+	border-radius: 5px 5px;
+}
+
+
+
+#table-news-nav {
+	background-color:#0047AB;
+	color: white;
+}
+
+#link-editor {
+	text-decoration: none;
+}
+
+
+
+.competition-info {
+	color: #0047AB;
+}
+
+#news-title {
+	background-color: #0047AB;
+	color: white;
+	padding: 5px 5px;
+	border-radius: 5px 5px;	
+
+}
+
+#news-item {
+	text-align: center;
+	
+}
+
+.news-info {
+	color: #0047AB;
+}
+
+#spisok-comments {
+	list-style: none;
+}
+
+#profile {
+	padding: 3px 3px;
+	text-align: center;
+	background-color: white;
+	border-radius: 10px 10px;
+	color: #0047AB;
+	opacity: 0.9;
+
+}
+
+#profile-title {
+	background-color: #0047AB;
+	color: white;
+	border-radius: 10px 10px;
+	opacity: 1;
+}
+
+#profile-photo {
+	border-radius: 10px 10px;
+}

@@ -1,0 +1,10 @@
+{% extends 'main/layout.html' %}
+{% block title %}Создание соревнования{% endblock %}
+{% block body %}
+    <h1>Форма создания соревнования</h1>
+    <form class="form-control" id="form-bg" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary" id="btn-bg" type="submit">Отправить</button>
+    </form>
+{% endblock %}

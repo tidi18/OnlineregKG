@@ -1,0 +1,79 @@
+{% extends 'main/layout.html' %}
+{% block title %}Соревнование{% endblock %}
+{% block body %}
+  <div class="container-fluid" id="detail-bg">
+    <div id="competition">
+      <h2>{{competition.competition_name}}</h2>
+      <h5 id="competition-date">{{competition.date}}</h5><hr>
+    </div>
+    <div id="competition-announcement">
+      <p>{{competition.announcement}}</p>
+    </div>
+    <hr>
+    <div id="">
+      <div class="illustration-organizer">
+        <img id="competition-illustration" src="{{ competition.illustration.url }}" alt="Иллюстрация">
+      </div>
+      <div class="p-3" id="competition-organizer">
+        <h3>Организаторы</h3>
+        <p>Имя:{{competition.organizer_name}} {{competition.organizer_last_name}}</p>
+        <p>Email:{{competition.organizer_email}}</p>
+        <p>Номер_телефона:{{competition.organizer_phone}}</p>
+        <p>Telegram:{{competition.organizer_telegram}}</p>
+        <p>WhatsApp:{{competition.organizer_whatsapp}}</p>
+      </div>
+    </div> 
+    <hr>
+    <div id="table-members-div">
+      <table class="table" id="table-competitions">
+        <thead id="table-competitions-nav">
+          <tr>
+            <th class="col">Имя</th>
+            <th class="col">Фамилия</th>
+            <th class="col">Разряд</th>
+            <th class="col">Команда</th>
+            <th class="col">Дата рождения</th>
+          </tr>
+        </thead>
+      <tbody>
+        {% for member in competition.members.all %}
+        <tr>
+          <td>{{member.name}}</td>
+          <td>{{member.last_name}}</td>
+          <td>{{member.discharge}}</td>
+          <td>{{member.team}}</td>
+          <td>{{member.date_of_birth}}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">No members found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div> 
+    <div class="" id="comment-div">
+        <h3>Комментарии</h3>
+        <div class="comment" id="comment-text">
+          <ul id="spisok-comments">
+            {% for comment in competition.comments.all %}
+            <li>
+              <strong>{{ comment.author}} {{comment.create_date|date:"d.m H:i"}}</strong><br>
+              {{comment.text}}
+            </li>
+            {% empty %}
+            <li>No comments found.</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <br>
+        <div class="comment-form">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary" id="btn-bg" >Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}
