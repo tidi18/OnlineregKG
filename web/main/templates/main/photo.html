@@ -1,0 +1,10 @@
+{% extends 'main/layout.html' %}
+{% block title %}Добавить фото{% endblock %}
+{% block body %}
+  <h1>Изменение фотографии</h1>
+  <form class="form-control" id="form-bg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" id="btn-bg" type="submit">Сохранить</button>
+  </form>
+{% endblock %}
