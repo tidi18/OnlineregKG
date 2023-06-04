@@ -65,7 +65,18 @@ class UserLoginForm(AuthenticationForm):
                 'autocomplete': 'off'
             })
 
+class PhotoForm(forms.Form):
+    photo = forms.ImageField(label='Загрузить фотографию')
 
+    class Meta:
+        model = Profile
+        fields = ['photo']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields['photo'].widget.attrs['placeholder'] = 'Выберите фото'
+            self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
 
 
 

@@ -152,10 +152,6 @@ body {
   
 }
 
-#competition-organizer {
-      
-}
-
 
 #illustration-organizer {
 	display: flex;
@@ -264,4 +260,5 @@ body {
 
 #profile-photo {
 	border-radius: 10px 10px;
+	overflow: hidden;
 }

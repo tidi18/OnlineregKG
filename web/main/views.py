@@ -11,14 +11,13 @@ from news.models import News
 from news.forms import NewsForm
 from users.models import Profile
 from users.views import check_blocked, BlockedUserMixin
+from users.forms import PhotoForm
 
 
 def index(request):
     competitions = Competition.objects.all()
     news = News.objects.all()
     return render(request, "main/index.html", {'competitions': competitions, 'news': news})
-
-
 
 
 def profile(request):
@@ -29,6 +28,21 @@ def profile(request):
             'profile': profile,
         }
         return render(request, 'main/profile.html', context)
+
+
+def change_photo(request):
+    if request.method == 'POST':
+        # Получите новую фотографию из запроса и выполните необходимые действия
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = request.user.profile
+            profile.photo = form.cleaned_data['photo']
+            profile.save()
+            # Перенаправьте пользователя на страницу профиля после изменения фотографии
+            return redirect('profile')
+    else:
+        form = PhotoForm()
+    return render(request, 'main/photo.html', {'form': form})
 
 
 def blocked_view(request):
