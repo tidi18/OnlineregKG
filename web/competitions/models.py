@@ -41,7 +41,7 @@ class Competition(models.Model):
     )
 
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='competitions', verbose_name='Редактор', blank=True, null=True)
-    create_date = models.DateField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True)
     state = models.CharField(choices=hostState_list, max_length=10, blank=False, verbose_name='Государство проведения')
     region = models.CharField(choices=region_list, max_length=11, blank=False, verbose_name='Регион проведения')
     date = models.DateField(blank=False, verbose_name='Дата (-ы) проведения')

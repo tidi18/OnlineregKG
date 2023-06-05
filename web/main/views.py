@@ -15,9 +15,15 @@ from users.forms import PhotoForm
 
 
 def index(request):
-    competitions = Competition.objects.all()
-    news = News.objects.all()
-    return render(request, "main/index.html", {'competitions': competitions, 'news': news})
+    active_link = 'competitions'
+    competitions_data = Competition.objects.order_by('-create_date')
+    return render(request, "main/index.html", {'active_link': active_link, 'competitions': competitions_data})
+
+
+def news(request):
+    active_link = 'news'
+    news_data = News.objects.all()
+    return render(request, "main/index.html", {'active_link': active_link, 'news': news_data})
 
 
 def profile(request):

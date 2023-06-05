@@ -1,66 +1,75 @@
 {% extends 'main/layout.html' %}
 {% block title %}Главное{% endblock %}
 {% block body %}
-   <div id="main">
-    <div class="row" id="main-items">
-      <div class="col" id="list-competitions">
-        <div id="main-item">
-          <h2 id="main-title">Календарь</h2><br>
-          {% for competition in competitions %}
-            <div class="competition-item">
-              <h6><a class="competition-name" id="link-competitions" href="{% url 'competition_detail' competition.slug %}">{{ competition.competition_name }}</a></h6>
-              <div class="competition-info">
-                <p>{{ competition.state }}</p>
-                <p>{{ competition.region }}</p>
-                <p>{{ competition.location }}</p>
-                <p>{{ competition.date }}</p>
-              </div>
-            </div>
-            <hr>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="col" id="list-news">
-        <div id="main-item">
-          <h2 id="main-title">Новости</h2>
-          <hr>
-          {% for news_item in news %}
-            <div class="news-item" id="news-item">
-              <h3 id="news-title">{{ news_item.header }}</h3>
-              <div class="news-info">
-                <p>{{ news_item.announcement }}</p>
-                <p>{{ news_item.date }}</p>
-                <hr>
-                {% if news_item.photo %}
-                  <img src="{{ news_item.photo.url }}" alt="News Photo">
-                {% endif %}
-                <hr>
-                <p>{{ news_item.text }}</p>
-                <hr>
-              </div>
-            </div>
-            <hr>
-          {% endfor %}
-        </div>
-      </div>
+  <div>
+    <div id="index-nav">
+      <ul class="nav nav-underline" id="">
+        <li class="nav-item" id="index-nav-item">
+          <a id="index-link" class="nav-link active" aria-current="page" href="{% url 'index' %}">Соревнования</a>
+        </li>
+        <li class="nav-item" id="index-nav-item">
+          <a id="index-link" class="nav-link" href="{% url 'news_info' %}">Новости</a>
+        </li>
+      </ul>
     </div>
-  </div>
+    {% if active_link == 'competitions' %}
+      <div id="index-table-info">
+        <div>
+          <h1>календарь</h1>
+        </div>
+        <hr>
+        {% for competition in competitions %}
+          <div>
+            <div>
+              <h6>
+                <a class="competition-name" id="link-competitions" href="{% url 'competition_detail' competition.slug %}">{{ competition.competition_name }}</a>
+              </h6>
+            </div>
+            <br>
+            <div>
+              <p>{{ competition.date }}</p>
+              <p>{{ competition.state }}</p>
+              <p>{{ competition.region }}</p>
+              <p>{{ competition.location }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% elif active_link == 'news' %}
+      <div id="index-table-info">
+        <div>
+          <h1>новости</h1>
+        </div>
+        <hr>
+        {% for news_item in news %}
+          <div>
+            <div id="index-news-title">
+              <h3>{{ news_item.header }}</h3>
+              <h5>{{news_item.date}}</h5>
+            </div>
+            <br>
+            <div>
+              <p>{{ news_item.announcement }}</p>
+            </div>
+            <br>
+            <div>
+              {% if news_item.photo %}
+                <img src="{{ news_item.photo.url }}" alt="News Photo">
+              {% endif %}
+            </div>
+            <br>
+            <div>
+              <p>{{ news_item.text }}</p>
+            </div>
+            <hr>
+          </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+    </div>
 {% endblock %}
 
 
-{% block footer %}
-    <ul class="nav">
-      <li class="nav-item"><a class="nav-link active" id="a-link" href="#list-competitions">Календарь <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
-  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-</svg></a></li>
-      <li class="nav-item"><a class="nav-link active" id="a-link" href="#list-news">новости <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 16">
-  <path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z"/>
-  <path d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z"/>
-</svg></a></li>
-      <li class="nav-item"><a class="nav-link active" id="a-link" href="#list-archive">Архив</a></li>
-      <li class="nav-item"><a class="nav-link active" id="a-link" href="#advertising">Реклама</a></li>
-    </ul>
-  {% endblock %}
+
 
 

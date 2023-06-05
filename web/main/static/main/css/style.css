@@ -8,8 +8,6 @@ body {
 #containerbg {
 	color: white;
 	margin: 70px;
-	
-	
 }
 
 #nav {
@@ -30,7 +28,6 @@ body {
 #a-link {
 	color: white;
 	margin:0 0 0 15px;
-
 }
 
 #a-link-user {
@@ -41,14 +38,11 @@ body {
 #a-link-logout {
 	margin: 0;
 	color: white;
-
 }
-
 
 #a-linkbg{
 	margin: 10px 0px 0px 2px;
 	padding: 8px 8px;
-
 }
 
 #a-linkbg:hover {
@@ -62,14 +56,12 @@ body {
 
 #nav-icon {
 	color: white;
-
 }
 
 #form-bg {
 	background-color: white;
 	opacity: 0.8;
 }
-
 
 #btn-bg {
 	background-color: #0047AB;
@@ -80,23 +72,6 @@ body {
 
 #btn-bg:hover {
 	border-radius: 10px 1px;
-}
-
-#main-title {
-	color: #0047AB;
-}
-
-#main-item {
-	background-color:white;
-	opacity: 0.7;
-	border-radius: 10px 10px;
-	padding: 10px 10px;
-	margin: 0px -8px;
-}
-
-#main-p {
-	color: black;
-	width: 100%;
 }
 
 #link-competitions {
@@ -116,7 +91,6 @@ body {
 	margin: 10px 0px; 
 }
 
-
 #footer {
 	position: fixed;
 	bottom: 0;
@@ -135,13 +109,10 @@ body {
 
 #competition-date {
 	width: 15%;
-	
-
 }
 
 #competition-announcement {
 	padding: 15px 15px;
-
 }
 
 #competition-illustration {
@@ -149,13 +120,10 @@ body {
   height: auto;
   float: right;
   margin-top:4% ;
-  
 }
-
 
 #illustration-organizer {
 	display: flex;
-
 }
 
 #table-members {
@@ -165,7 +133,6 @@ body {
 #comment-div {
 	text-align: center;
 }
-
 
 #comment-text {
 	border-style: solid;
@@ -191,9 +158,9 @@ body {
 	color: white;
 }
 
-
 #table-news-div {
 	margin-top:10vh;
+
 }
 
 #table-news {
@@ -202,8 +169,6 @@ body {
 	color: #0047AB;
 	border-radius: 5px 5px;
 }
-
-
 
 #table-news-nav {
 	background-color:#0047AB;
@@ -214,26 +179,7 @@ body {
 	text-decoration: none;
 }
 
-
-
 .competition-info {
-	color: #0047AB;
-}
-
-#news-title {
-	background-color: #0047AB;
-	color: white;
-	padding: 5px 5px;
-	border-radius: 5px 5px;	
-
-}
-
-#news-item {
-	text-align: center;
-	
-}
-
-.news-info {
 	color: #0047AB;
 }
 
@@ -248,7 +194,6 @@ body {
 	border-radius: 10px 10px;
 	color: #0047AB;
 	opacity: 0.9;
-
 }
 
 #profile-title {
@@ -261,4 +206,40 @@ body {
 #profile-photo {
 	border-radius: 10px 10px;
 	overflow: hidden;
+}
+
+
+
+
+
+#index-nav {
+	background-color: #0047AB;
+	border-radius: 5px 5px;
+	padding: 5px;
+	opacity: 0.8;
+}
+
+#index-nav-item {
+	padding: 5px;
+	margin-left: 10px;
+}
+
+#index-link {
+	color: white;
+}
+
+#index-table-info {
+	color: #0047AB;
+	padding: 10px;
+	background-color: white;
+	opacity: 0.8;
+	border-radius: 2px 2px;
+}
+
+#index-news-title {
+	background-color: #0047AB;
+	color: white;
+	padding: 5px;
+	border-radius: 5px 5px;
+
 }
