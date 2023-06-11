@@ -12,6 +12,7 @@ from news.forms import NewsForm
 from users.models import Profile
 from users.views import check_blocked, BlockedUserMixin
 from users.forms import PhotoForm
+import re
 
 
 def index(request):
@@ -67,12 +68,11 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
         return super().dispatch(request, *args, **kwargs)
 
     def has_profanity(self, text):
-        profanities = ['хуй', 'пизда', 'иди на хуй', 'заволи ебало', 'ебать', 'блять', 'пиздец', 'соси']
+        pattern = r"(?iu)\b((у|[нз]а|(хитро|не)?вз?[ыьъ]|с[ьъ]|(и|ра)[зс]ъ?|(о[тб]|под)[ьъ]?|(.\B)+?[оаеи])?-?([её]б(?!о[рй])|и[пб][ае][тц]).*?|(н[иеа]|([дп]|верт)о|ра[зс]|з?а|с(ме)?|о(т|дно)?|апч)?-?ху([яйиеёю]|ли(?!ган)).*?|(в[зы]|(три|два|четыре)жды|(н|сук)а)?-?бл(я(?!(х|ш[кн]|мб)[ауеыио]).*?|[еэ][дт]ь?)|(ра[сз]|[зн]а|[со]|вы?|п(ере|р[оие]|од)|и[зс]ъ?|[ао]т)?п[иеё]зд.*?|(за)?п[ие]д[аое]?р([оа]м|(ас)?(ну.*?|и(ли)?[нщктл]ь?)?|(о(ч[еи])?|ас)?к(ой)|юг)[ауеы]?|манд([ауеыи](л(и[сзщ])?[ауеиы])?|ой|[ао]вошь?(е?к[ауе])?|юк(ов|[ауи])?)|муд([яаио].*?|е?н([ьюия]|ей))|мля([тд]ь)?|лять|([нз]а|по)х|м[ао]л[ао]фь([яию]|[еёо]й))\b"
         lowercase_text = text.lower()
 
-        for profanity in profanities:
-            if profanity in lowercase_text:
-                return True
+        if re.search(pattern, lowercase_text):
+            return True
 
         return False
 
