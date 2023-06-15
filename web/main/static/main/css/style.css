@@ -1,4 +1,5 @@
 body {
+	height: 100%;
 	background-image: url(../img/rough-horn-ge477d8ee5_1920.jpg);
 	background-repeat: no-repeat;
 	background-size: cover; 
@@ -22,7 +23,8 @@ body {
 
 #a-link-home {
 	color: white;
-	margin: 0 0 0 5px;
+	padding: 0 2rem;
+	
 }
 
 #a-link {
@@ -103,15 +105,29 @@ body {
 	background-color: white;
 	opacity: 0.8;
 	border-radius: 10px 10px;
-	padding: 5px 5px;
+	padding: 2.5%;
 	color: #0047AB;
 }
 
+#competition {
+	width: 100%;
+	text-align: center;
+	background-color: #0047AB;
+	color: white;
+	border-radius: 5px 5px;
+	padding:3%;
+
+}
+
 #competition-date {
-	width: 15%;
+	width: 100%;
 }
 
 #competition-announcement {
+	width: 100%;
+	line-height: 25px;
+   font-size: 17px;
+   font-weight: 600;
 	padding: 15px 15px;
 }
 
@@ -188,7 +204,7 @@ body {
 }
 
 #profile {
-	padding: 3px 3px;
+	padding: 10px;
 	text-align: center;
 	background-color: white;
 	border-radius: 10px 10px;
@@ -207,10 +223,6 @@ body {
 	border-radius: 10px 10px;
 	overflow: hidden;
 }
-
-
-
-
 
 #index-nav {
 	background-color: #0047AB;
@@ -241,5 +253,34 @@ body {
 	color: white;
 	padding: 5px;
 	border-radius: 5px 5px;
+}
 
+#table-competitions-nav2 {
+	background-color: #0047AB;
+	color: white;
+	border-radius: 5px 5px;
+}
+
+#table-competitions2 {
+	color: #0047AB;
+	background-color: white;
+}
+
+.checkbox-control input[type="checkbox"] {
+    /* Общие стили для галочек */
+    margin-right: 5px; /* Отступ между галочкой и текстом */
+}
+
+.checkbox-control input[type="checkbox"]:checked {
+    /* Стили для выбранных галочек */
+    /* Например, изменение цвета фона или рамки */
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+}
+
+.checkbox-control input[type="checkbox"]:hover {
+    /* Стили для наведения на галочки */
+    /* Например, изменение цвета фона или рамки */
+    background-color: #e6e6e6;
+    border: 1px solid #999;
 }

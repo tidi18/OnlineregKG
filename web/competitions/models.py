@@ -5,7 +5,6 @@ from django.urls import reverse
 from pytils.translit import slugify
 
 
-
 class Competition(models.Model):
     hostState_list = [
         ('Кыргызстан', 'Кыргызстан'),
@@ -58,6 +57,12 @@ class Competition(models.Model):
     announcement = models.TextField(blank=False, verbose_name='Краткий анонс')
     coordinates_to_competition = models.CharField(max_length=255, blank=True, verbose_name='Точные координаты')
     slug = models.SlugField(unique=True, max_length=255)
+
+    def set_age_groups(self, age_groups):
+        self.age_groups_of_participants = ','.join(age_groups)
+
+    def get_age_groups(self):
+        return self.age_groups_of_participants.split(',')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.competition_name)

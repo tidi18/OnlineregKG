@@ -1,11 +1,11 @@
-from django.contrib.auth.decorators import login_required
+from .models import Competition
+from users.views import BlockedUserMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from .forms import CompetitionsForm
-from .models import Competition
+from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
-from users.views import BlockedUserMixin
+from .forms import CompetitionsForm
 
 
 class CompetitionCreateView(BlockedUserMixin, CreateView):
@@ -26,3 +26,10 @@ class CompetitionCreateView(BlockedUserMixin, CreateView):
         competition.author = self.request.user
         competition.save()
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if 'organizer_phone' in form.errors or 'organizer_telegram' in form.errors or 'organizer_whatsapp' in form.errors:
+            form.add_error(None, 'Необходимо заполнить хотя бы одно из полей "Номер телефона организатора", "Telegram организатора" или "WhatsApp организатора".')
+        return super().form_invalid(form)
+
+

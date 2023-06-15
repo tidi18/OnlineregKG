@@ -1,34 +1,38 @@
 from captcha.fields import CaptchaField
-from django import forms
 from .models import Competition
-from django.core.validators import RegexValidator
 from .models import Comment
+from django import forms
+from django.core.validators import RegexValidator
 
 
 class CompetitionsForm(forms.ModelForm):
     phone_regex = RegexValidator(
         regex=r'\+996\d{9}$',
-        message='Номер телефона должен быть в формате: "+996XXXXXXXXX'
+        message='Номер телефона должен быть в формате: "+996XXXXXXXXX"'
     )
     telegram_regex = RegexValidator(
         regex=r'^@[A-Za-z0-9]{5,}$',
-        message='invalid username Telegram'
-
+        message='Invalid username Telegram'
     )
-    state = forms.CharField(label='Государство проведения:', widget=forms.Select(choices=Competition.hostState_list))
-    region = forms.CharField(label='Регион:', widget=forms.Select(choices=Competition.region_list))
-    date = forms.DateField(label='Дата проведения:', widget=forms.DateInput(attrs={"type": "date"}))
-    organizer_name = forms.CharField(label='Имя организатора:', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    organizer_last_name = forms.CharField(label='Фамилия организатора:', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    organizer_email = forms.EmailField(label='Email организатора:', widget=forms.EmailInput(attrs={'class': 'form-input'}))
-    organizer_phone = forms.CharField(label='Номер телефона организатора:', validators=[phone_regex])
-    organizer_telegram = forms.CharField(label='Telegram организатора:', validators=[telegram_regex])
-    organizer_whatsapp = forms.CharField(label='WhatsApp организатора:', validators=[phone_regex])
-    competition_name = forms.CharField(label='Наименование:', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    location = forms.CharField(label='Место проведения:', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    age_groups_of_participants = forms.CharField(label='Возрастные группы участников:', widget=forms.Select(choices=Competition.age_groups_of_participants_list))
-    illustration = forms.ImageField(label='Иллюстрация:')
-    announcement = forms.CharField(label='Краткий анонс:', widget=forms.Textarea())
+
+    state = forms.CharField(label='Государство проведения:', widget=forms.Select(choices=Competition.hostState_list, attrs={'class': 'form-control'}))
+    region = forms.CharField(label='Регион:', widget=forms.Select(choices=Competition.region_list, attrs={'class': 'form-control'}))
+    date = forms.DateField(label='Дата проведения:', widget=forms.DateInput(attrs={"type": "date", 'class': 'form-control'}))
+    organizer_name = forms.CharField(label='Имя организатора:', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    organizer_last_name = forms.CharField(label='Фамилия организатора:', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    organizer_email = forms.EmailField(label='Email организатора:', widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    organizer_phone = forms.CharField(label='Номер телефона организатора:', validators=[phone_regex], required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    organizer_telegram = forms.CharField(label='Telegram организатора:', validators=[telegram_regex], required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    organizer_whatsapp = forms.CharField(label='WhatsApp организатора:', validators=[phone_regex], required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    competition_name = forms.CharField(label='Наименование:', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    location = forms.CharField(label='Место проведения:', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    age_groups_of_participants = forms.MultipleChoiceField(
+        label='Возрастные группы участников:',
+        choices=Competition.age_groups_of_participants_list,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-control'})
+    )
+    illustration = forms.ImageField(label='Иллюстрация:', widget=forms.FileInput(attrs={'class': 'form-control'}))
+    announcement = forms.CharField(label='Краткий анонс:', widget=forms.Textarea(attrs={'class': 'form-control'}))
     captcha = CaptchaField()
 
     class Meta:
@@ -49,10 +53,19 @@ class CompetitionsForm(forms.ModelForm):
             'illustration',
             'announcement',
             'captcha'
-                  ]
+        ]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        phone = cleaned_data.get('organizer_phone')
+        telegram = cleaned_data.get('organizer_telegram')
+        whatsapp = cleaned_data.get('organizer_whatsapp')
+        if not phone and not telegram and not whatsapp:
+            self.add_error('organizer_phone', 'Необходимо заполнить хотя бы одно из полей')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         for field in self.fields:
             self.fields['state'].widget.attrs['placeholder'] = 'Выберите государство'
             self.fields['region'].widget.attrs['placeholder'] = 'Выберите регион'
@@ -69,7 +82,11 @@ class CompetitionsForm(forms.ModelForm):
             self.fields['illustration'].widget.attrs['placeholder'] = 'Иллюстрация'
             self.fields['announcement'].widget.attrs['placeholder'] = ''
             self.fields['captcha'].widget.attrs.update({"placeholder": 'Напишите текст с картинки'})
-            self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
+
+            if field == 'age_groups_of_participants':
+                self.fields[field].widget.attrs.update({"class": "checkbox-control"})
+            else:
+                self.fields[field].widget.attrs.update({"class": "form-control"})
 
 
 class CommentForm(forms.ModelForm):

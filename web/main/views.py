@@ -62,10 +62,8 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
     form_class = CommentForm
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
-
-    @method_decorator(login_required, name='get')
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/login/'  # Путь к странице входа
+    redirect_field_name = 'next'  # Поле для сохранения URL-адреса перенаправления
 
     def has_profanity(self, text):
         pattern = r"(?iu)\b((у|[нз]а|(хитро|не)?вз?[ыьъ]|с[ьъ]|(и|ра)[зс]ъ?|(о[тб]|под)[ьъ]?|(.\B)+?[оаеи])?-?([её]б(?!о[рй])|и[пб][ае][тц]).*?|(н[иеа]|([дп]|верт)о|ра[зс]|з?а|с(ме)?|о(т|дно)?|апч)?-?ху([яйиеёю]|ли(?!ган)).*?|(в[зы]|(три|два|четыре)жды|(н|сук)а)?-?бл(я(?!(х|ш[кн]|мб)[ауеыио]).*?|[еэ][дт]ь?)|(ра[сз]|[зн]а|[со]|вы?|п(ере|р[оие]|од)|и[зс]ъ?|[ао]т)?п[иеё]зд.*?|(за)?п[ие]д[аое]?р([оа]м|(ас)?(ну.*?|и(ли)?[нщктл]ь?)?|(о(ч[еи])?|ас)?к(ой)|юг)[ауеы]?|манд([ауеыи](л(и[сзщ])?[ауеиы])?|ой|[ао]вошь?(е?к[ауе])?|юк(ов|[ауи])?)|муд([яаио].*?|е?н([ьюия]|ей))|мля([тд]ь)?|лять|([нз]а|по)х|м[ао]л[ао]фь([яию]|[еёо]й))\b"
@@ -82,22 +80,23 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
         comment_text = request.POST.get('text', '')
         has_profanity = self.has_profanity(comment_text)
 
-        if form.is_valid() and not has_profanity:
-            comment = form.save(commit=False)
-            comment.competition = self.object
-            comment.author = self.request.user
-            comment.save()
-            return redirect('competition_detail', slug=self.object.slug)
+        if request.user.is_authenticated:  # Проверка аутентификации пользователя
+            if form.is_valid() and not has_profanity:
+                comment = form.save(commit=False)
+                comment.competition = self.object
+                comment.author = self.request.user  # Присваиваем аутентифицированного пользователя
+                comment.save()
+                return redirect('competition_detail', slug=self.object.slug)
+            else:
+                if has_profanity:
+                    form.add_error('text', 'Комментарий содержит недопустимые слова.')
+                    user = request.user
+                    profile = Profile.objects.get(user=user)
+                    profile.is_blocked = True
+                    profile.save()
+                    return redirect('blocked')
         else:
-            if has_profanity:
-                form.add_error('text', 'Комментарий содержит недопустимые слова.')
-                user = request.user
-                profile = Profile.objects.get(user=user)
-                profile.is_blocked = True
-                profile.save()
-                return redirect('blocked')
-            return self.render_to_response(self.get_context_data(form=form))
-
+            return redirect('login')
 
 def in_editor_group(user):
     return user.groups.filter(name='editors').exists()
