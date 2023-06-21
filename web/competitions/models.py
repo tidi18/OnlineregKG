@@ -52,7 +52,7 @@ class Competition(models.Model):
     organizer_whatsapp = models.CharField(max_length=255, blank=True, null=True, validators=[phone_regex], verbose_name='WhatsApp организатора')
     competition_name = models.CharField(max_length=255, blank=False, verbose_name='Наименование')
     location = models.CharField(max_length=255, blank=False, verbose_name='Место проведения')
-    age_groups_of_participants = models.CharField(choices=age_groups_of_participants_list, max_length=255, blank=False, verbose_name='Возрастные группы участников')
+    age_groups_of_participants = models.CharField(max_length=255, blank=False, verbose_name='Возрастные группы участников')
     illustration = models.ImageField(upload_to='competitions_illustration', blank=False, verbose_name='Иллюстрация')
     announcement = models.TextField(blank=False, verbose_name='Краткий анонс')
     coordinates_to_competition = models.CharField(max_length=255, blank=True, verbose_name='Точные координаты')
