@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
+from django.core.cache import cache
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
@@ -97,6 +98,17 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
                     return redirect('blocked')
         else:
             return redirect('login')
+
+    def get(self, request, *args, **kwargs):
+        cache_key = f'competition_{self.kwargs["slug"]}'
+        data = cache.get(cache_key)
+
+        if not data:
+            data = super().get(request, *args, **kwargs)
+            cache.set(cache_key, data, 300)
+
+        return data
+
 
 def in_editor_group(user):
     return user.groups.filter(name='editors').exists()
