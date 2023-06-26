@@ -21,12 +21,17 @@ class Competition(models.Model):
         ('Ош', 'Ош'),
     ]
 
+    before_18 = ['12', '11', '13', '14', '15', '16', '17', '18']
+    before_25 = ['19', '20', '21', '22', '23', '24', '25']
+    before_35 = ['26', '27', '28', '29', '30', '31', '32', '33', '34', '35']
+    before_45 = ['36', '37', '38', '39', '40', '41', '42', '43', '45']
+    ignor = ['A', 'B', 'C', 'D']
     age_groups_of_participants_list = [
-        ('до 18', 'до 18'),
-        ('18-25', '18-25'),
-        ('25-35', '25-35'),
-        ('35-45', '35-45'),
-        ('A, B, C, D', 'A, B, C, D ')
+        (f'{before_18}', 'До-18'),
+        (f'{before_25}', '18-25'),
+        (f'{before_35}', '25-35'),
+        (f'{before_45}', '35-45'),
+        (f'{ignor}', 'A, B, C, D ')
     ]
 
     phone_regex = RegexValidator(
@@ -52,7 +57,7 @@ class Competition(models.Model):
     organizer_whatsapp = models.CharField(max_length=255, blank=True, null=True, validators=[phone_regex], verbose_name='WhatsApp организатора')
     competition_name = models.CharField(max_length=255, blank=False, verbose_name='Наименование')
     location = models.CharField(max_length=255, blank=False, verbose_name='Место проведения')
-    age_groups_of_participants = models.CharField(max_length=255, blank=False, verbose_name='Возрастные группы участников')
+    age_groups_of_participants = models.TextField( blank=False, verbose_name='Возрастные группы участников')
     illustration = models.ImageField(upload_to='competitions_illustration', blank=False, verbose_name='Иллюстрация')
     announcement = models.TextField(blank=False, verbose_name='Краткий анонс')
     coordinates_to_competition = models.CharField(max_length=255, blank=True, verbose_name='Точные координаты')

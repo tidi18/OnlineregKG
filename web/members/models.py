@@ -5,6 +5,7 @@ from competitions.models import Competition
 class Member(models.Model):
 
     discharge_list = [
+        ('без разряда', 'без разряда'),
         ('3 юношеский', '3 юношеский'),
         ('2 юношеский', '2 юношеский'),
         ('1 юношеский', '1 юношеский'),

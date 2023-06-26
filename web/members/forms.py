@@ -1,6 +1,8 @@
+from datetime import datetime
 from captcha.fields import CaptchaField
 from django import forms
 from .models import Member
+from competitions.models import Competition
 
 
 class MemberForm(forms.ModelForm):
@@ -11,15 +13,32 @@ class MemberForm(forms.ModelForm):
     discharge = forms.CharField(label='Разряд:', widget=forms.Select(choices=Member.discharge_list))
     team = forms.CharField(label='Команда:', widget=forms.TextInput(attrs={'class': 'form-input'}))
     captcha = CaptchaField()
+
     class Meta:
         model = Member
         fields = ['competition', 'name', 'last_name', 'date_of_birth',  'discharge', 'team', 'captcha']
 
-    def __init__(self, *args, **kwargs):
+    def clean(self):
+        cleaned_data = super().clean()
+        date_of_birth = cleaned_data.get('date_of_birth')
+        competition_data = cleaned_data.get('competition')
 
+        try:
+            competition = Competition.objects.get(id=competition_data.id)
+            competition_age_groups = competition.age_groups_of_participants
+            current_year = datetime.now().year
+            birth_year = date_of_birth.year
+            calculated_age = current_year - birth_year
+            if str(calculated_age) not in competition_age_groups:
+                raise forms.ValidationError("Вы не подходите ни к одной возрастной группе для данного соревнования.")
+        except Competition.DoesNotExist:
+            raise forms.ValidationError("Соревнование не найдено.")
+
+        return cleaned_data
+
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields['competition'].widget.attrs['placeholder'] = ''
             self.fields['name'].widget.attrs['placeholder'] = 'Ваше имя'
             self.fields['last_name'].widget.attrs['placeholder'] = 'Ваша фамилия'
             self.fields['date_of_birth'].widget.attrs['placeholder'] = ''
@@ -27,5 +46,3 @@ class MemberForm(forms.ModelForm):
             self.fields['team'].widget.attrs['placeholder'] = 'Название вашей команды'
             self.fields['captcha'].widget.attrs.update({"placeholder": 'Напишите текст с картинки'})
             self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
-
-
