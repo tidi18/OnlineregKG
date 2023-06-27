@@ -132,10 +132,11 @@ body {
 }
 
 #competition-illustration {
-  max-width: 100%;
+	padding: 5px;
+  width: 230px;
   height: auto;
   float: right;
-  margin-top:4% ;
+  
 }
 
 #illustration-organizer {

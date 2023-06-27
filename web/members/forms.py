@@ -1,3 +1,4 @@
+import ast
 from datetime import datetime
 from captcha.fields import CaptchaField
 from django import forms
@@ -30,8 +31,21 @@ class MemberForm(forms.ModelForm):
             current_year = datetime.now().year
             birth_year = date_of_birth.year
             calculated_age = current_year - birth_year
-            if str(calculated_age) not in competition_age_groups:
-                raise forms.ValidationError("Вы не подходите ни к одной возрастной группе для данного соревнования.")
+            tt = competition_age_groups
+            age_groups1 = []
+            age_groups1.append(tt)
+            data_list = ast.literal_eval(age_groups1[0])
+            age_groups = []
+            for sublist in data_list:
+                sublist = ast.literal_eval(sublist)
+                age_groups.extend(sublist)
+
+            # Преобразование элементов списка в целочисленные значения
+            age_groups = list(map(str, age_groups))
+            if 'A' not in str(age_groups) or 'B' not in str(age_groups) or 'C' not in str(age_groups) or 'D' not in str(age_groups):
+                if str(calculated_age) not in age_groups:
+                    raise forms.ValidationError(f"{age_groups}Вы не подходите ни к одной возрастной группе для данного соревнования.")
+
         except Competition.DoesNotExist:
             raise forms.ValidationError("Соревнование не найдено.")
 

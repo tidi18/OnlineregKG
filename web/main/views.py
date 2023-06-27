@@ -99,15 +99,7 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
         else:
             return redirect('login')
 
-    def get(self, request, *args, **kwargs):
-        cache_key = f'competition_{self.kwargs["slug"]}'
-        data = cache.get(cache_key)
 
-        if not data:
-            data = super().get(request, *args, **kwargs)
-            cache.set(cache_key, data, 300)
-
-        return data
 
 
 def in_editor_group(user):

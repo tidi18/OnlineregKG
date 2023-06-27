@@ -64,7 +64,7 @@ class Competition(models.Model):
     slug = models.SlugField(unique=True, max_length=255)
 
     def set_age_groups(self, age_groups):
-        self.age_groups_of_participants = ','.join(age_groups)
+        self.age_groups_of_participants = ', '.join(age_groups.split(','))
 
     def get_age_groups(self):
         return self.age_groups_of_participants.split(',')
