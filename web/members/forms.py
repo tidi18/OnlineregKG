@@ -9,6 +9,7 @@ class MemberForm(forms.ModelForm):
     competition = forms.Select(attrs={'class': 'form-control'})
     name = forms.CharField(label='Имя:', widget=forms.TextInput(attrs={'class': 'form-input'}))
     last_name = forms.CharField(label='Фамилия:', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    gender = forms.CharField(label='Пол', widget=forms.Select(choices=Member.gender_list, attrs={'class': 'form-input'}))
     date_of_birth = forms.DateField(label='Дата рождения:', widget=forms.DateInput(attrs={'type': 'date'}))
     discharge = forms.CharField(label='Разряд:', widget=forms.Select(choices=Member.discharge_list))
     team = forms.CharField(label='Команда:', widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -16,7 +17,7 @@ class MemberForm(forms.ModelForm):
 
     class Meta:
         model = Member
-        fields = ['competition', 'name', 'last_name', 'date_of_birth',  'discharge', 'team', 'captcha']
+        fields = ['competition', 'name', 'last_name', 'gender', 'date_of_birth',  'discharge', 'team', 'captcha']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -41,6 +42,7 @@ class MemberForm(forms.ModelForm):
         for field in self.fields:
             self.fields['name'].widget.attrs['placeholder'] = 'Ваше имя'
             self.fields['last_name'].widget.attrs['placeholder'] = 'Ваша фамилия'
+            self.fields['gender'].widget.attrs['placeholder'] = 'Укажите свой пол'
             self.fields['date_of_birth'].widget.attrs['placeholder'] = ''
             self.fields['discharge'].widget.attrs['placeholder'] = ''
             self.fields['team'].widget.attrs['placeholder'] = 'Название вашей команды'
