@@ -1,3 +1,4 @@
+import ast
 from datetime import datetime
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -7,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from .forms import MemberForm
 from users.views import BlockedUserMixin
+from .models import Competition
 
 
 class MemberViews(BlockedUserMixin, CreateView):
@@ -23,6 +25,17 @@ class MemberViews(BlockedUserMixin, CreateView):
             return redirect('contact')
 
     def form_valid(self, form):
+        competition_data = form.cleaned_data['competition']
+        competition = Competition.objects.get(id=competition_data.id)
+        competition_age_group = competition.age_groups_of_participants
+        age_group_list = []
+        age_group_list.append(competition_age_group)
+        data_list = ast.literal_eval(age_group_list[0])
+        age_groups = []
+        for sublist in data_list:
+            sublist = ast.literal_eval(sublist)
+            age_groups.extend(sublist)
+        age_groups = list(map(str, age_groups))
         date_of_birth = form.cleaned_data['date_of_birth']
         gender = form.cleaned_data['gender']
         date_of_birth_str = str(date_of_birth)
@@ -30,9 +43,27 @@ class MemberViews(BlockedUserMixin, CreateView):
         current_year = datetime.now().year
         birth_year = date_of_birth.year
         calculated_age = current_year - birth_year
-        group = f'{calculated_age}{gender}'
 
-        # Заполнение поля age_group формы автоматически
-        form.instance.age_group = group
+        if str(calculated_age) in age_groups:
+            if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+                group = f'{calculated_age}{gender}'
+                form.instance.age_group = group
+                return super().form_valid(form)
 
-        return super().form_valid(form)
+        elif str(calculated_age) not in age_groups:
+            if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+                group = 'A B C D'
+                form.instance.age_group = group
+                return super().form_valid(form)
+
+
+        # if str(calculated_age) in age_groups and 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+        #     group = f'{calculated_age}{gender}'
+        #     form.instance.age_group = group
+        #     return super().form_valid(form)
+        #
+        # if str(calculated_age) not in age_groups and 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+        #     if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+        #     group = 'A B C D'
+        #     form.instance.age_group = group
+        #     return super().form_valid(form)

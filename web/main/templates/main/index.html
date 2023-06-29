@@ -13,34 +13,34 @@
       </ul>
     </div>
     {% if active_link == 'competitions' %}
-      <div id="index-table-info">
+      <div id="index-table-info-competitions">
         <div>
-          <h1>календарь</h1>
+          <h1>Календарь</h1>
         </div>
         <hr>
         {% for competition in competitions %}
           <div>
-            <div>
+            <div id="link-competition-table">
               <h6>
                 <a class="competition-name" id="link-competitions" href="{% url 'competition_detail' competition.slug %}">{{ competition.competition_name }}</a>
               </h6>
             </div>
-            <br>
-            <div>
-              <p>{{ competition.date }}</p>
-              <p>{{ competition.state }}</p>
-              <p>{{ competition.region }}</p>
-              <p>{{ competition.location }}</p>
+            <div id="index-table-competitions-info">
+              <h6>{{ competition.date }}</h6>
+              <h6>{{ competition.state }}</h6>
+              <h6>{{ competition.region }}</h6>
+              <h6>{{ competition.location }}</h6>
             </div>
           </div>
+          <hr>
         {% endfor %}
       </div>
     {% elif active_link == 'news' %}
-      <div id="index-table-info">
-        <div>
-          <h1>новости</h1>
+      <div id="index-table-info-news">
+        <div id="header-news">
+          <h1>Новости</h1>
         </div>
-        <hr>
+        <br>
         {% for news_item in news %}
           <div>
             <div id="index-news-title">
@@ -48,17 +48,17 @@
               <h5>{{news_item.date}}</h5>
             </div>
             <br>
-            <div>
+            <div id="news-text">
               <p>{{ news_item.announcement }}</p>
             </div>
             <br>
             <div>
               {% if news_item.photo %}
-                <img src="{{ news_item.photo.url }}" alt="News Photo">
+                <img id="news-illustration" src="{{ news_item.photo.url }}" alt="News Photo">
               {% endif %}
             </div>
             <br>
-            <div>
+            <div id="news-text">
               <p>{{ news_item.text }}</p>
             </div>
             <hr>

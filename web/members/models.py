@@ -31,7 +31,7 @@ class Member(models.Model):
     discharge = models.CharField(max_length=50, blank=False, verbose_name='Разряд')
     team = models.CharField(max_length=255, blank=True, verbose_name='Команда')
     date_of_birth = models.DateField(blank=False, verbose_name='Дата рождения')
-    age_group = models.CharField(max_length=3, blank=True, verbose_name='Возрастная группа')
+    age_group = models.CharField(max_length=10, blank=True, verbose_name='Возрастная группа')
 
     def __str__(self):
         return f'{self.competition} {self.name} {self.last_name}'
