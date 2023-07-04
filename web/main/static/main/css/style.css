@@ -8,7 +8,7 @@
 
 #containerbg {
 	color: white;
-	margin: 70px;
+	padding: 100px;
 }
 
 #nav {
@@ -315,4 +315,9 @@
 	width: 75vh;
 	height: auto;
 
+}
+
+#home-logo-link {
+	width: 10vh;
+	height:10vh;
 }
