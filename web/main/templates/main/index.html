@@ -19,9 +19,9 @@
         </div>
         <hr>
         {% for competition in competitions %}
-          <div>
+          <div class="">
             <div id="link-competition-table">
-              <h6>
+              <h6 class="">
                 <a class="competition-name" id="link-competitions" href="{% url 'competition_detail' competition.slug %}">{{ competition.competition_name }}</a>
               </h6>
             </div>
@@ -40,7 +40,7 @@
         <div id="header-news">
           <h1>Новости</h1>
         </div>
-        <br>
+        <hr>
         {% for news_item in news %}
           <div>
             <div id="index-news-title">
