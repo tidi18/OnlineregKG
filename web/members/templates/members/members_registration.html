@@ -1,12 +1,71 @@
 {% extends 'main/layout.html' %}
-{% block title %}регистрация участников{% endblock %}
+{% block title %}Регистрация участников{% endblock %}
 {% block body %}
-<h1>Реистрация участника</h1>
-<div class="control-form container-fluid" id="">
-    <form class="form-control" id="form-bg" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary" id="btn-bg" type="submit">Oтправить</button>
-    </form>
+    <h1>Регистрация участника</h1>
+    <div class="control-form container-fluid">
+        {% if form.abcd_group %}
+            <form class="form-control" id="form-bg" method="POST">
+                {% csrf_token %}
 
-    {% endblock %}
+                <p><label for="{{ form.competition.id_for_label }}">Соревнование:</label>
+                {{ form.competition }}</p>
+
+                <p><label for="{{ form.name.id_for_label }}">Имя:</label>
+                    {{ form.name }}</p>
+
+                <p><label for="{{ form.last_name.id_for_label }}">Фамилия:</label>
+                {{ form.last_name }}</p>
+
+                <p><label for="{{ form.gender.id_for_label }}">Пол:</label>
+                {{ form.gender }}</p>
+
+                <p><label for="{{ form.date_of_birth.id_for_label }}">Дата рождения:</label>
+                {{ form.date_of_birth }}</p>
+
+                <p><label for="{{ form.discharge.id_for_label }}">Разряд:</label>
+                {{ form.discharge }}</p>
+
+                <p><label for="{{ form.team.id_for_label }}">Команда:</label>
+                {{ form.team }}</p>
+
+                <p><label for="{{ form.abcd_group.id_for_label }}">Группа ABCD:</label>
+                {{ form.abcd_group }}</p>
+
+                <p><label for="{{ form.captcha.id_for_label }}">Капча:</label>
+                {{ form.captcha }}</p>
+                <button class="btn btn-primary" id="btn-bg" type="submit">Отправить</button>
+            </form>
+        {% else %}
+            <form class="form-control" id="form-bg" method="POST">
+                {% csrf_token %}
+
+                <p><label for="{{ form.competition.id_for_label }}">Соревнование:</label>
+                {{ form.competition }}</p>
+
+                <p><label for="{{ form.name.id_for_label }}">Имя:</label>
+                {{ form.name }}</p>
+
+                <p><label for="{{ form.last_name.id_for_label }}">Фамилия:</label>
+                {{ form.last_name }}</p>
+
+                <p><label for="{{ form.gender.id_for_label }}">Пол:</label>
+                {{ form.gender }}</p>
+
+                <p><label for="{{ form.date_of_birth.id_for_label }}">Дата рождения:</label>
+                {{ form.date_of_birth }}</p>
+
+                <p><label for="{{ form.discharge.id_for_label }}">Разряд:</label>
+                {{ form.discharge }}</p>
+
+                <p><label for="{{ form.team.id_for_label }}">Команда:</label>
+                {{ form.team }}</p>
+
+                <p><label for="{{ form.captcha.id_for_label }}">Капча:</label>
+                {{ form.captcha }}</p>
+
+                <button class="btn btn-primary" id="btn-bg" type="submit">Отправить</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
+

@@ -25,6 +25,7 @@ class MemberViews(BlockedUserMixin, CreateView):
             return redirect('contact')
 
     def form_valid(self, form):
+        abc_group = form.cleaned_data.get('abcd_group')
         competition_data = form.cleaned_data['competition']
         competition = Competition.objects.get(id=competition_data.id)
         competition_age_group = competition.age_groups_of_participants
@@ -44,26 +45,30 @@ class MemberViews(BlockedUserMixin, CreateView):
         birth_year = date_of_birth.year
         calculated_age = current_year - birth_year
 
-        if str(calculated_age) in age_groups:
-            if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+        if abc_group == None:
+            if str(calculated_age) in age_groups:
                 group = f'{calculated_age}{gender}'
                 form.instance.age_group = group
                 return super().form_valid(form)
 
-        elif str(calculated_age) not in age_groups:
+        else:
             if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
-                group = 'A B C D'
+                group = f'{abc_group}'
                 form.instance.age_group = group
                 return super().form_valid(form)
 
 
-        # if str(calculated_age) in age_groups and 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
-        #     group = f'{calculated_age}{gender}'
-        #     form.instance.age_group = group
-        #     return super().form_valid(form)
-        #
-        # if str(calculated_age) not in age_groups and 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+
+
+        # if str(calculated_age) in age_groups:
         #     if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
-        #     group = 'A B C D'
-        #     form.instance.age_group = group
-        #     return super().form_valid(form)
+        #         group = f'{calculated_age}{gender}'
+        #         form.instance.age_group = group
+        #         return super().form_valid(form)
+        #
+        # elif str(calculated_age) not in age_groups:
+        #     if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
+        #         group = f'{abc_group}'
+        #         form.instance.age_group = group
+        #         return super().form_valid(form)
+        #
