@@ -1,5 +1,7 @@
 {% extends 'main/layout.html' %}
+
 {% block title %}Соревнование{% endblock %}
+
 {% block body %}
   <div class="container-fluid" id="detail-bg">
     <div id="competition">
@@ -18,13 +20,29 @@
       </div>
       <div class="p-3" id="competition-organizer">
         <h3>Организаторы</h3>
-        <p>Имя:{{competition.organizer_name}} {{competition.organizer_last_name}}</p>
-        <p>Email:{{competition.organizer_email}}</p>
-        <p>Номер_телефона:{{competition.organizer_phone}}</p>
-        <p>Telegram:{{competition.organizer_telegram}}</p>
-        <p>WhatsApp:{{competition.organizer_whatsapp}}</p>
+        {% if competition.organizer_name or competition.organizer_last_name %}
+          <p>Имя: {{competition.organizer_name}} {{competition.organizer_last_name}}</p>
+        {% endif %}
+        {% if competition.organizer_email %}
+          <p>Email: {{competition.organizer_email}}</p>
+        {% endif %}
+        {% if competition.organizer_phone %}
+          <p>Номер_телефона: {{competition.organizer_phone}}</p>
+        {% else %}
+          <p>Номер_телефона: Нет информации</p>
+        {% endif %}
+        {% if competition.organizer_telegram %}
+          <p>Telegram: {{competition.organizer_telegram}}</p>
+        {% else %}
+          <p>Telegram: Нет информации</p>
+        {% endif %}
+        {% if competition.organizer_whatsapp %}
+          <p>WhatsApp: {{competition.organizer_whatsapp}}</p>
+        {% else %}
+          <p>WhatsApp: Нет информации</p>
+        {% endif %}
       </div>
-    </div> 
+    </div>
     <hr>
     <div id="table-members-div">
       <table class="table" id="table-competitions2">
@@ -38,46 +56,46 @@
             <th class="col">Возрастная группа</th>
           </tr>
         </thead>
-      <tbody>
-        {% for member in competition.members.all %}
-        <tr>
-          <td>{{member.name}}</td>
-          <td>{{member.last_name}}</td>
-          <td>{{member.discharge}}</td>
-          <td>{{member.team}}</td>
-          <td>{{member.date_of_birth}}</td>
-          <td>{{member.age_group}}</td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="5">No members found.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    </div> 
+        <tbody>
+          {% for member in competition.members.all %}
+            <tr>
+              <td>{{member.name}}</td>
+              <td>{{member.last_name}}</td>
+              <td>{{member.discharge}}</td>
+              <td>{{member.team}}</td>
+              <td>{{member.date_of_birth}}</td>
+              <td>{{member.age_group}}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6">No members found.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
     <div class="" id="comment-div">
-        <h3>Комментарии</h3>
-        <div class="comment" id="comment-text">
-          <ul id="spisok-comments">
-            {% for comment in competition.comments.all %}
+      <h3>Комментарии</h3>
+      <div class="comment" id="comment-text">
+        <ul id="spisok-comments">
+          {% for comment in competition.comments.all %}
             <li>
               <strong>{{ comment.author}} {{comment.create_date|date:"d.m H:i"}}</strong><br>
               {{comment.text}}
             </li>
-            {% empty %}
+          {% empty %}
             <li>No comments found.</li>
-            {% endfor %}
-          </ul>
-        </div>
-        <br>
-        <div class="comment-form">
-          <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary" id="btn-bg" >Отправить</button>
-          </form>
-        </div>
+          {% endfor %}
+        </ul>
+      </div>
+      <br>
+      <div class="comment-form">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary" id="btn-bg" >Отправить</button>
+        </form>
       </div>
     </div>
+  </div>
 {% endblock %}
