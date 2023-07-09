@@ -1,18 +1,20 @@
 import ast
 from datetime import datetime
-from captcha.fields import CaptchaField
+
 from django import forms
+from captcha.fields import CaptchaField
 from .models import Member
 from competitions.models import Competition
 
+
 class MemberForm(forms.ModelForm):
-    competition = forms.Select(attrs={'class': 'form-control'})
-    name = forms.CharField(label='Имя:', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    last_name = forms.CharField(label='Фамилия:', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    gender = forms.CharField(label='Пол', widget=forms.Select(choices=Member.gender_list, attrs={'class': 'form-input'}))
-    date_of_birth = forms.DateField(label='Дата рождения:', widget=forms.DateInput(attrs={'type': 'date'}))
-    discharge = forms.CharField(label='Разряд:', widget=forms.Select(choices=Member.discharge_list))
-    team = forms.CharField(label='Команда:', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    competition = forms.ModelChoiceField(queryset=Competition.objects.all(), label='Название соревнования', widget=forms.Select(attrs={'class': 'form-control'}))
+    name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    gender = forms.ChoiceField(label='Пол', choices=Member.gender_list, widget=forms.Select(attrs={'class': 'form-input'}))
+    date_of_birth = forms.DateField(label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
+    discharge = forms.ChoiceField(label='Разряд', choices=Member.discharge_list)
+    team = forms.CharField(label='Команда', widget=forms.TextInput(attrs={'class': 'form-input'}))
     captcha = CaptchaField()
 
     class Meta:
@@ -58,7 +60,7 @@ class MemberForm(forms.ModelForm):
 
         if self.should_display_abcd_group(competition_age_groups):
             self.fields['abcd_group'] = forms.ChoiceField(
-                label='Выберите группу ABCD:',
+                label='Выберите группу ABCD',
                 choices=[('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D')],
                 widget=forms.Select(attrs={'class': 'form-input'})
             )

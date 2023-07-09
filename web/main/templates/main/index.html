@@ -36,36 +36,40 @@
         {% endfor %}
       </div>
     {% elif active_link == 'news' %}
-      <div id="index-table-info-news">
-        <div id="header-news">
-          <h1>Новости</h1>
-        </div>
-        <hr>
-        {% for news_item in news %}
-          <div>
-            <div id="index-news-title">
-              <h3>{{ news_item.header }}</h3>
-              <h5>{{news_item.date}}</h5>
+    <div id="index-table-info-news">
+      <div id="header-news">
+        <h1>Новости</h1>
+      </div>
+      <hr>
+      {% for news_item in news %}
+        <div class="news-item">
+          <div class="row">
+            <div class="col-md-8">
+              <div id="index-news-title">
+                <h3>{{ news_item.header }}</h3>
+                <h5>{{ news_item.date }}</h5>
+              </div>
+              <br>
+              <div id="news-text">
+                <p>
+                  {{ news_item.announcement }}
+                </p>
+              </div>
+              <div id="news-text">
+                <p>{{ news_item.text }}</p>
+              </div>
             </div>
-            <br>
-            <div id="news-text">
-              <p>{{ news_item.announcement }}</p>
-            </div>
-            <br>
-            <div>
+            <div class="col-md-4">
               {% if news_item.photo %}
-                <img id="news-illustration" src="{{ news_item.photo.url }}" alt="News Photo">
+                <img class="img-fluid" src="{{ news_item.photo.url }}" alt="News Photo">
               {% endif %}
             </div>
-            <br>
-            <div id="news-text">
-              <p>{{ news_item.text }}</p>
-            </div>
-            <hr>
           </div>
-        {% endfor %}
         </div>
-    {% endif %}
+        <hr>
+      {% endfor %}
+      </div>
+      {% endif %}
     </div>
 {% endblock %}
 

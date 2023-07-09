@@ -271,33 +271,6 @@
     overflow-x: auto; 
 }
 
-#index-table-info-news {
-	color: #0047AB;
-	padding: 10px;
-	background-color: white;
-	opacity: 0.8;
-	border-radius: 2px 2px;
-	text-align: center;
-	min-width: 420px; 
-    overflow-x: auto; 
-}
-
-#header-news {
-	text-align: left;
-}
-
-#news-text{
-	text-align: left;
-}
-
-#index-news-title {
-	background-color: #0047AB;
-	color: white;
-	padding: 5px;
-	border-radius: 5px 5px;
-	
-}
-
 #table-competitions-nav2 {
 	background-color: #0047AB;
 	color: white;
@@ -323,13 +296,66 @@
     border: 1px solid #999;
 }
 
-#news-illustration {
-	width: 75vh;
-	height: auto;
-
-}
 
 #home-logo-link {
 	width: 10vh;
 	height:10vh;
+}
+
+
+ #header-news {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+#news-illustration {
+      height: auto;
+      margin-bottom: 10px;
+      float: right;
+
+    }
+
+#news-text {
+      margin-bottom: 15px;
+    }
+
+hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+.news-item .news-content {
+      flex: 1;
+    }
+
+.news-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+
+    .news-item img {
+      max-width: 220px;
+      height: auto;
+      margin-left: 10px;
+    }
+
+#index-table-info-news {
+	background-color: white;
+	padding: 20px;
+	color: #0047AB;
+	opacity: 0.8;
+	min-width: 420px;
+    overflow-x: auto; 
+
+}
+
+
+#index-news-title {
+	background-color: #0047AB;
+	color: white;
+	padding: 3px;
+	border-radius: 5px 5px;
 }

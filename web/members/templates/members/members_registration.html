@@ -67,5 +67,18 @@
             </form>
         {% endif %}
     </div>
-{% endblock %}
 
+    <script>
+        // Получаем поле выбора соревнования
+        var competitionField = document.getElementById('id_competition');
+
+        // Добавляем обработчик события изменения поля выбора соревнования
+        competitionField.addEventListener('change', function() {
+            // Получаем кнопку отправки формы
+            var submitButton = document.getElementById('btn-bg');
+
+            // Нажимаем кнопку отправки формы
+            submitButton.click();
+        });
+    </script>
+{% endblock %}
