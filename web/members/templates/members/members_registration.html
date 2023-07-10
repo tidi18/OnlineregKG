@@ -7,6 +7,18 @@
             <form class="form-control" id="form-bg" method="POST">
                 {% csrf_token %}
 
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field_errors in form.errors.values %}
+                                {% for error in field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
                 <p><label for="{{ form.competition.id_for_label }}">Соревнование:</label>
                 {{ form.competition }}</p>
 
@@ -38,6 +50,18 @@
         {% else %}
             <form class="form-control" id="form-bg" method="POST">
                 {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field_errors in form.errors.values %}
+                                {% for error in field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
 
                 <p><label for="{{ form.competition.id_for_label }}">Соревнование:</label>
                 {{ form.competition }}</p>

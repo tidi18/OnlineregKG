@@ -46,8 +46,7 @@ class MemberForm(forms.ModelForm):
 
                 if 'A' not in age_groups or 'B' not in age_groups or 'C' not in age_groups or 'D' not in age_groups:
                     if str(calculated_age) not in age_groups:
-                        raise forms.ValidationError(
-                            "Вы не подходите ни к одной возрастной группе для данного соревнования.")
+                        raise forms.ValidationError("Вы не подходите ни к одной возрастной группе для данного соревнования.")
                 else:
                     cleaned_data['abcd_group'] = cleaned_data.get('abcd_group')
 
