@@ -367,3 +367,19 @@ hr {
 	padding: 3px;
 	border-radius: 5px 5px;
 }
+
+#about-bg {
+	padding: 10px;
+	background-color: white;
+	border-radius: 5px 5px;
+	opacity: 0.8;
+	color: #0047AB;
+}
+
+#about-header {
+	background-color: #0047AB;
+	color: white;
+	border-radius: 5px 5px;
+	padding: 3px;
+
+}
