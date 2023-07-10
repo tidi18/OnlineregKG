@@ -27,27 +27,29 @@ class MemberForm(forms.ModelForm):
         competition_data = cleaned_data.get('competition')
 
         try:
-            competition = Competition.objects.get(id=competition_data.id)
-            competition_age_groups = competition.age_groups_of_participants
-            current_year = datetime.now().year
-            birth_year = date_of_birth.year
-            calculated_age = current_year - birth_year
+            if date_of_birth:
+                competition = Competition.objects.get(id=competition_data.id)
+                competition_age_groups = competition.age_groups_of_participants
+                current_year = datetime.now().year
+                birth_year = date_of_birth.year
+                calculated_age = current_year - birth_year
 
-            age_groups_list = []
-            age_groups_list.append(competition_age_groups)
-            data_list = ast.literal_eval(age_groups_list[0])
+                age_groups_list = []
+                age_groups_list.append(competition_age_groups)
+                data_list = ast.literal_eval(age_groups_list[0])
 
-            age_groups = []
-            for sublist in data_list:
-                sublist = ast.literal_eval(sublist)
-                age_groups.extend(sublist)
-            age_groups = list(map(str, age_groups))
+                age_groups = []
+                for sublist in data_list:
+                    sublist = ast.literal_eval(sublist)
+                    age_groups.extend(sublist)
+                age_groups = list(map(str, age_groups))
 
-            if 'A' not in age_groups or 'B' not in age_groups or 'C' not in age_groups or 'D' not in age_groups:
-                if str(calculated_age) not in age_groups:
-                    raise forms.ValidationError("Вы не подходите ни к одной возрастной группе для данного соревнования.")
-            else:
-                cleaned_data['abcd_group'] = cleaned_data.get('abcd_group')
+                if 'A' not in age_groups or 'B' not in age_groups or 'C' not in age_groups or 'D' not in age_groups:
+                    if str(calculated_age) not in age_groups:
+                        raise forms.ValidationError(
+                            "Вы не подходите ни к одной возрастной группе для данного соревнования.")
+                else:
+                    cleaned_data['abcd_group'] = cleaned_data.get('abcd_group')
 
         except Competition.DoesNotExist:
             raise forms.ValidationError("Соревнование не найдено.")

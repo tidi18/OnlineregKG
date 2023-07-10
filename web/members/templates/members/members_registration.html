@@ -74,11 +74,11 @@
 
         // Добавляем обработчик события изменения поля выбора соревнования
         competitionField.addEventListener('change', function() {
-            // Получаем кнопку отправки формы
-            var submitButton = document.getElementById('btn-bg');
+            // Получаем форму
+            var form = document.getElementById('form-bg');
 
-            // Нажимаем кнопку отправки формы
-            submitButton.click();
+            // Отправляем форму
+            form.submit();
         });
     </script>
 {% endblock %}
