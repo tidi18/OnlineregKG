@@ -7,7 +7,7 @@ class ContactsForm(forms.ModelForm):
     name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={"classs": "form-input"}))
     email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={"classs": "form-input"}))
     subject = forms.CharField(label='Тема', widget=forms.TextInput(attrs={"classs": "form-input"}))
-    message = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={"class": "form-input"}))
+    message = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={"class": "form-input", "rows": 5, "cols": 40}))
     captcha = CaptchaField()
 
     class Meta:
