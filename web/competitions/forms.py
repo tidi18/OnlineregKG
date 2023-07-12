@@ -32,7 +32,7 @@ class CompetitionsForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-control'})
     )
     illustration = forms.ImageField(label='Иллюстрация:', widget=forms.FileInput(attrs={'class': 'form-control'}))
-    announcement = forms.CharField(label='Краткий анонс:', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    announcement = forms.CharField(label='Краткий анонс:', widget=forms.Textarea(attrs={'class': 'form-control', "rows": 5, "cols": 40}))
     captcha = CaptchaField()
 
     class Meta:

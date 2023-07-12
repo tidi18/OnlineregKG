@@ -383,3 +383,10 @@ hr {
 	padding: 3px;
 
 }
+
+#about-logo {
+	margin-top: 65px;
+	margin-right: 20px;
+	width: 300px;
+	height: auto;
+}
