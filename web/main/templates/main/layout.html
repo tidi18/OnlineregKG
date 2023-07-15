@@ -1,83 +1,82 @@
 {% load static %}
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-    <title>{% block title %}{% endblock %}</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+  
+
+  <title>{% block title %}{% endblock %}</title>
 </head>
-<body class="" id="body">
-  <header class="fixed-top" id="header">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="nav">
-      <div class="container-fluid" id="bg-nav">
-        <a class="navbar-brand" id="a-link-home" href="{% url 'index' %}"><img id="home-logo-link" src="{% static 'img/home_logo.png' %}" alt="home logo"></a>
-        <button id="nav-icon" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-</svg></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" id="a-link" href="{% url 'editor' %}">Редактор</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="a-link" href="{% url 'member' %}">Регистрация участника соревнований <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-  <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-</svg></a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="dop-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">О системе</a>
-              <ul class="dropdown-menu" id="dop-menubg">
-                <li><a class="dropdown-item" id="a-linkbg"  href="{% url 'about' %}">О нас</a></li>
-                <li><a class="dropdown-item" id="a-linkbg" href="{% url 'contact' %}">Контакты</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown" id="my-nav-item">
+<body id="body" class="bg-image">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+  <div>
+    <header id="header">
+      <nav class="navbar custom-bg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/home_logo.png' %}" alt="Logo" width="35" height="34" class="d-inline-block align-text-top">
+            OnlineregKG
+          </a>
+          <button id="burger" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+            </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'editor' %}">Редактор</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'member' %}">Регистрация участника</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">О нас</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Контакты</a>
+              </li>
               {% if user.is_authenticated%}
-                <a class="nav-link active" id="a-link-user" href = "{% url 'profile'%}">{{user.username}} <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
-</svg></a></li>
-                <li><a class="nav-link active" id="a-link-logout" href = "{% url 'logout'%}">Выйти <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-</svg></a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile'%}">{{user.username}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout'%}">выйти</a>
+              </li>
               {% else %}
-                <a class="nav-link dropdown-toggle" id="dop-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Войти</a>
-                <ul class="dropdown-menu" id="dop-menubg">
-                  <li><a class="dropdown-item" id="a-linkbg" href="{% url 'login' %}">Вход</a></li>
-                  <li><a class="dropdown-item" id="a-linkbg" href="{% url 'register' %}">Регистрация пользователя</a></li>
-                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Регистрация пользователя</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Вход</a>
+              </li>
               {% endif %}
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
+  </div>
+
+
+  
+  <div class="container">
+    {% block body %}
+    {% endblock %}
+  </div>
 
 
 
-
-    <div class="container" id="containerbg">
-      {% block body %}
-      {% endblock %}
-    </div>
-
-
-
-
-  <footer class="" id="footer">
+  <div class="container-fluid">
     {% block footer %}
     {% endblock %}
-  </footer>
+  </div>
 
 </body>
 </html>

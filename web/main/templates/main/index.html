@@ -2,30 +2,30 @@
 {% block title %}Главное{% endblock %}
 {% block body %}
   <div>
-    <div id="index-nav">
-      <ul class="nav nav-underline" id="">
-        <li class="nav-item" id="index-nav-item">
-          <a id="index-link" class="nav-link active" aria-current="page" href="{% url 'index' %}">Соревнования</a>
+    <div id="index-header">
+      <ul class="nav nav-underline">
+        <li class="nav-item">
+          <a id="index-nav-link" class="nav-link active" aria-current="page" href="{% url 'index' %}">Соревнования</a>
         </li>
-        <li class="nav-item" id="index-nav-item">
-          <a id="index-link" class="nav-link" href="{% url 'news_info' %}">Новости</a>
+        <li class="nav-item" id="">
+          <a id="index-nav-link" class="nav-link" href="{% url 'news_info' %}">Новости</a>
         </li>
       </ul>
     </div>
     {% if active_link == 'competitions' %}
-      <div id="index-table-info-competitions">
-        <div>
+      <div id="index-info">
+        <div id="index-chapter">
           <h1>Календарь</h1>
         </div>
         <hr>
         {% for competition in competitions %}
-          <div class="">
-            <div id="link-competition-table">
-              <h6 class="">
-                <a class="competition-name" id="link-competitions" href="{% url 'competition_detail' competition.slug %}">{{ competition.competition_name }}</a>
+          <div>
+            <div>
+              <h6>
+                <a id="index-competitions-detail-link" href="{% url 'competition_detail' competition.slug %}">{{ competition.competition_name }}</a>
               </h6>
             </div>
-            <div id="index-table-competitions-info">
+            <div id="index-competitions-info">
               <h6>{{ competition.date }}</h6>
               <h6>{{ competition.state }} {{ competition.region }}</h6>
               <h6>{{ competition.location }}</h6>
@@ -35,26 +35,26 @@
         {% endfor %}
       </div>
     {% elif active_link == 'news' %}
-    <div id="index-table-info-news">
-      <div id="header-news">
+    <div id="index-info">
+      <div id="index-chapter">
         <h1>Новости</h1>
       </div>
       <hr>
       {% for news_item in news %}
-        <div class="news-item">
+        <div class="">
           <div class="row">
             <div class="col-md-8">
-              <div id="index-news-title">
+              <div id="index-news-header">
                 <h3>{{ news_item.header }}</h3>
                 <h5>{{ news_item.date }}</h5>
               </div>
               <br>
-              <div id="news-text">
+              <div id="index-news-text">
                 <p>
                   {{ news_item.announcement }}
                 </p>
               </div>
-              <div id="news-text">
+              <div id="index-news-text">
                 <p>{{ news_item.text }}</p>
               </div>
             </div>
