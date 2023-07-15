@@ -6,10 +6,8 @@ COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY ./web .
-
-WORKDIR /app/web
+COPY . .
 
 ENV DJANGO_SETTINGS_MODULE=web.settings
 
-CMD ["python", "../manage.py", "runserver", "0.0.0.0:80"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
