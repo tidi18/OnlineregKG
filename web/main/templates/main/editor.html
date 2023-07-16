@@ -2,14 +2,15 @@
 {% block title %}Редактор{% endblock %}
 {% block body %}
 	{% if update %}
-		<h1>{{title}}</h1>
-		<form class="form-control" id="form-bg" method="post">
-			{% csrf_token %}
-			{{ form.as_p }}	
-			<button class="btn btn-primary" id="btn-bg" type="submit">Обновить</button>
-		</form>
+		<div class="container">
+			<h1>{{title}}</h1>
+			<form class="form-control" id="form-shell" method="post">
+				{% csrf_token %}
+				{{ form.as_p }}	
+				<button class="btn btn-primary" id="form-button" type="submit">Обновить</button>
+			</form>
+		</div>
 	{% else %}
-	{% endif %}
 	{% if competitions %}
 		<div class="container">
 			<div id="editor-header">
@@ -121,11 +122,13 @@
 			<h1>На данный момент новостей нет!</h1>
 			<p>Но вы можете создать их :)</p>
 		</div>
+	{% endif %}	
 	{% endif %}
 {% endblock %}
 
 
 {% block footer %}
+	{% if not update %}
 	<footer id="footer" class="fixed-bottom">
   	<nav id="footer-nav">
     	<ul id="footer-ul">
@@ -148,4 +151,5 @@
     	</ul>
   	</nav>
 	</footer>
+	{% endif %}
 {% endblock %}

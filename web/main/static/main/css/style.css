@@ -12,6 +12,22 @@
   background-attachment: fixed;
 }
 
+#form-shell {
+	opacity: 0.8;
+
+}
+
+#form-button {
+	background-color: #0047AB;
+	border-color: #0047AB;
+	border-radius: 1px 10px;
+	transition: 0.7s;
+}
+
+#form-button:hover {
+	border-radius: 10px 1px;
+}
+
 
 .custom-bg {
 	position: fixed;
@@ -31,6 +47,7 @@
 
 .container {
   margin-top: 100px;
+  color: white;
 }
 
 
@@ -194,4 +211,40 @@
 	padding: 5px;
 
 }
+
+#profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  opacity: 0.8;
+  color:  #0047AB;
+  border-radius: 5px 5px;
+  padding: 5px;
+}
+
+#profile div {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#profile img {
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto; /* Добавлено для центрирования изображения по горизонтали */
+}
+
+#profile .btn {
+  margin-top: 10px;
+}
+
+#profile-title {
+	background-color: #0047AB;
+	color: white;
+	padding: 5px;
+	border-radius: 2px 2px;
+	white-space: 100%;
+}
+
 

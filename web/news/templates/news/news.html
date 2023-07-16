@@ -2,9 +2,9 @@
 {% block title %}новости{% endblock %}
 {% block body %}
     <h1>контент страницы новости</h1>
-      <form class="form-control" id="form-bg" method="POST" enctype="multipart/form-data">
+      <form class="form-control" id="form-shell" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-primary" id="btn-bg" type="submit">Oтправить</button>
+        <button class="btn btn-primary" id="form-button" type="submit">Oтправить</button>
       </form>
 {% endblock %}

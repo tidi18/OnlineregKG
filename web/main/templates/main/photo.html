@@ -2,9 +2,9 @@
 {% block title %}Добавить фото{% endblock %}
 {% block body %}
   <h1>Изменение фотографии</h1>
-  <form class="form-control" id="form-bg" method="post" enctype="multipart/form-data">
+  <form class="form-control" id="form-shell" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button class="btn btn-primary" id="btn-bg" type="submit">Сохранить</button>
+    <button class="btn btn-primary" id="form-button" type="submit">Сохранить</button>
   </form>
 {% endblock %}

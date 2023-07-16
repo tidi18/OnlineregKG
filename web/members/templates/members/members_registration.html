@@ -4,7 +4,7 @@
     <h1>Регистрация участника</h1>
     <div class="control-form container-fluid">
         {% if form.abcd_group %}
-            <form class="form-control" id="form-bg" method="POST">
+            <form class="form-control" id="form-shell" method="POST">
                 {% csrf_token %}
 
                 {% if form.errors %}
@@ -45,10 +45,10 @@
 
                 <p><label for="{{ form.captcha.id_for_label }}">Капча:</label>
                 {{ form.captcha }}</p>
-                <button class="btn btn-primary" id="btn-bg" type="submit">Отправить</button>
+                <button class="btn btn-primary" id="form-button" type="submit">Отправить</button>
             </form>
         {% else %}
-            <form class="form-control" id="form-bg" method="POST">
+            <form class="form-control" id="form-shell" method="POST">
                 {% csrf_token %}
 
                 {% if form.errors %}
@@ -87,7 +87,7 @@
                 <p><label for="{{ form.captcha.id_for_label }}">Капча:</label>
                 {{ form.captcha }}</p>
 
-                <button class="btn btn-primary" id="btn-bg" type="submit">Отправить</button>
+                <button class="btn btn-primary" id="form-button" type="submit">Отправить</button>
             </form>
         {% endif %}
     </div>

@@ -3,12 +3,12 @@
 {% block body %}
     <h1>Aвторизация</h1>
     <div class="control-form container-fluid">
-      <form class="form-control" id="form-bg" method="post">
+      <form class="form-control" id="form-shell" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-primary" id="btn-bg" type="submit">Вход</button>
-        <a class="btn btn-primary" id="btn-bg" href="{% url 'register' %}">У меня нет аккаунта!</a>
-        <a class="btn btn-primary" id="btn-bg" href="{% url 'password_reset' %}">Забыли пароль?</a>
+        <button class="btn btn-primary" id="form-button" type="submit">Вход</button>
+        <a class="btn btn-primary" id="form-button" href="{% url 'register' %}">У меня нет аккаунта!</a>
+        <a class="btn btn-primary" id="form-button" href="{% url 'password_reset' %}">Забыли пароль?</a>
       </form>
     </div>
 {% endblock %}

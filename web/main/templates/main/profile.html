@@ -1,30 +1,33 @@
 {% extends 'main/layout.html' %}
 {% block title %}Профиль{% endblock %}
 {% block body %}
-  <div class="container" id="profile">
-    <div id="profile-title">
+ <div class="container" id="profile">
+   <div id="profile-title">
       <h1>Профиль пользователя</h1>
-    </div>
-    <hr>
-    <br>
+   </div>
     {% if profile.photo %}
-      <img id="profile-photo" src="{{ profile.photo.url }}"  alt="Фото профиля">
-      <br>
-      <hr>
-      <div id="">
-        <button onclick="location.href='/change_photo'" class="btn btn-primary" id="btn-bg">Поменять фото</button>
+      <div class="col-lg-4">
+        <div class="d-flex">
+          <img class="img-fluid" id="" src="{{ profile.photo.url }}"  alt="Фото профиля">
+        </div>
+        <div>
+          <button onclick="location.href='/change_photo'" class="btn btn-primary" id="form-button">Поменять фото</button>
+        </div>
       </div>
     {% else %}
-      <p>Фото профиля отсутствует</p>
-      <br>
-      <hr>
       <div>
-        <button onclick="location.href='/change_photo'" class="btn btn-primary" id="btn-bg">Добавить фото</button>
+        <div>
+          <p>Фото профиля отсутствует</p>
+        </div>
+        <div>
+          <button onclick="location.href='/change_photo'" class="btn btn-primary" id="form-button">Добавить фото</button>
+        </div>
       </div>
     {% endif %}
-    <br>
-    <p>Имя пользователя: {{ profile.user.username }}</p>
-    <p>Email: {{ profile.user.email }}</p>
-    <p>Дата рождения: {{ profile.date_of_birth }}</p> 
-  </div>
+    <div>
+      <p>Имя пользователя: {{ profile.user.username }}</p>
+      <p>Email: {{ profile.user.email }}</p>
+      <p>Дата рождения: {{ profile.date_of_birth }}</p> 
+    </div>
+ </div>
 {% endblock %}
