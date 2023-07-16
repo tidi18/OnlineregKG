@@ -1,18 +1,20 @@
 #body {
 	height: auto;
-    margin: 0;
+  margin: 0;
 }
 
 
 .bg-image {
   background-image: url(../img/rough-horn-ge477d8ee5_1920.jpg);
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
-  margin: 0;
+  background-attachment: fixed;
 }
 
+
 .custom-bg {
+	position: fixed;
   background-color: #0047AB;
   opacity: 0.8;
 
@@ -28,7 +30,7 @@
 }
 
 .container {
-  margin-top: 40px;
+  margin-top: 100px;
 }
 
 
@@ -80,20 +82,116 @@
 	padding: 5px;
 }
 
-#index-news-text {
-	color: #0047AB;
+#editor-header {
+	color: white;
+}
+
+#editor-message {
+	color: white;
 }
 
 
 #editor-table {
-	background-color:white;
 	opacity: 0.8;
+}
+
+#editor-table-header th {
+    background-color: #0047AB;
+    color: white;
+
+}
+
+#editor-table-info td {
 	color: #0047AB;
-	border-radius: 5px 5px;
 }
 
 
-#editor-table-header {
-	background-color:#0047AB;
+#editor-table-info td a {
+	text-decoration: none;
+
+}
+
+
+#footer-nav {
+  display: flex;
+  background-color: #0047AB;
+  color: white;
+  padding: 15px;
+  opacity: 0.8;
+}
+
+#footer-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+#footer-ul li {
+  margin-right: 30px;
+
+}
+
+#footer-ul li:last-child {
+  margin-right: 0;
+}
+
+
+#detail-competition {
+	background-color: white;
+	padding: 10px;
+	border-radius: 5px 5px;
+	color: #0047AB;
+	opacity: 0.8;
+}
+
+#detail-cmpetitions-header {
+	color: white;
+	background-color: #0047AB;
+	padding: 5px;
+	border-radius: 3px 3px;
+}
+
+#detail-competition-illustration {
+	float: right;
+	padding: 10px;
+}
+
+#detail-organizer-header {
+	background-color: #0047AB;
+	color: white;
+	padding: 5px;
+	border-radius: 3px 3px;
+}
+
+
+#detail-organizer-info {
+	margin-top:10px;
+	padding: 5px;
+
+}
+
+#detail-members-table th {
+	background-color: #0047AB;
 	color: white;
 }
+
+#detail-members-table-info td {
+	color: #0047AB;
+}
+
+#detail-comment-header {
+	background-color: #0047AB;
+	color: white;
+	padding: 5px;
+	border-radius: 2px 2px;
+}
+
+
+#detail-comment-info ul li {
+	list-style: none;
+	margin-top: 10px;
+	padding: 5px;
+
+}
+
