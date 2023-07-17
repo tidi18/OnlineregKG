@@ -1,14 +1,18 @@
 {% extends 'main/layout.html' %}
 {% block title %}вход{% endblock %}
 {% block body %}
-    <h1>Aвторизация</h1>
-    <div class="control-form container-fluid">
-      <form class="form-control" id="form-shell" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<h1>Авторизация</h1>
+<div class="control-form container-fluid">
+  <form class="form-control" id="form-shell" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="text-left">
+      <div class="d-flex justify-content-start" id="entrance-button">
         <button class="btn btn-primary" id="form-button" type="submit">Вход</button>
         <a class="btn btn-primary" id="form-button" href="{% url 'register' %}">У меня нет аккаунта!</a>
         <a class="btn btn-primary" id="form-button" href="{% url 'password_reset' %}">Забыли пароль?</a>
-      </form>
+      </div>
     </div>
+  </form>
+</div>
 {% endblock %}

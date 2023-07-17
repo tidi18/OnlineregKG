@@ -99,6 +99,10 @@
 	padding: 5px;
 }
 
+#index-news-text {
+	color: #0047AB;
+}
+
 #editor-header {
 	color: white;
 }
@@ -241,4 +245,25 @@
 	margin-bottom: 20px;
 }
 
+#about {
+	background-color: white;
+	border-radius: 4px 4px;
+	opacity: 0.8;
+	color: #0047AB;
+	padding: 7px;
+}
 
+#about-header {
+	background-color: #0047AB;
+	color: white;
+	padding: 5px;
+	border-radius: 4px 4px;
+}
+
+#entrance-button button {
+	margin-right: 10px;
+}
+
+#entrance-button a {
+	margin-right: 10px;
+}

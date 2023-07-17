@@ -1,7 +1,7 @@
 {% extends 'main/layout.html' %}
 {% block title %}о нас{% endblock %}
 {% block body %}
-  <div id="about-bg">
+  <div id="about">
     <div class="row">
       <div class="col-lg-6">
         <div id="about-header">
@@ -9,13 +9,13 @@
         </div>
         <hr>
         <div>
-          <h4>Что такое OnlineregKG?</h4>
+          <h4 id="about-header">Что такое OnlineregKG?</h4>
           <div>
             <p>
               Проект onlinereg.kg реализован в рамках сотрудничества IT Академии (г. Кара-Балта) и федерации спортивного ориентирования Кыргызстана в 2023 году. Создатель проекта <a href="https://github.com/tidi18">Дастан Темиров</a> (<a href="https://www.linkedin.com/in/dastan-temirov-21188b281">ссылка на LinkedIn</a>). Мы предоставляем возможность онлайн-регистрации на соревнования по спортивному ориентированию и удобную систему учёта участников соревнований. По вопросам сотрудничества: <a href="mailto:kosvetlanov@gmail.com">kosvetlanov@gmail.com</a> (Константин Светланов)
             </p>
             <hr>
-            <div>
+            <div id="about-header">
               <h4>Контакты Федерации</h4>
             </div>
             <div>
@@ -28,9 +28,9 @@
           <hr> 
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-md-6">
         <div class="text-lg-end">
-          <img id="about-logo" src="/static/main/img/home_logo.png" alt="home logo">
+          <img id="img-fluid" src="/static/main/img/home_logo.png" alt="home logo">
         </div>
       </div>
     </div>
