@@ -213,38 +213,32 @@
 }
 
 #profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  opacity: 0.8;
-  color:  #0047AB;
-  border-radius: 5px 5px;
-  padding: 5px;
-}
+	background-color: white;
+	opacity: 0.8;
+	color: #0047AB;
+	text-align: center;
+	padding: 5px;
+	border-radius: 4px 4px;
 
-#profile div {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#profile img {
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto; /* Добавлено для центрирования изображения по горизонтали */
-}
-
-#profile .btn {
-  margin-top: 10px;
 }
 
 #profile-title {
 	background-color: #0047AB;
 	color: white;
 	padding: 5px;
-	border-radius: 2px 2px;
-	white-space: 100%;
+	border-radius: 5px 5px;
+}
+
+#profile-items {
+	display: flex;
+	flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile-button {
+	margin-top: 10px;
+	margin-bottom: 20px;
 }
 
 
