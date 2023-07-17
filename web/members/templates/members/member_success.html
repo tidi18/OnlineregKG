@@ -1,5 +1,12 @@
 {% extends 'main/layout.html' %}
 {% block title %}Участники{% endblock %}
 {% block body %}
-       <h1>Участник успешно сохранен в базе данных :)</h1>
+	<div class="container" id="success-message">
+		<div>
+			<h1>Участник успешно сохранен в базе данных :)</h1>
+		</div>
+		<div>
+			<a class="btn btn-primary ml-2" id="form-button" href="{% url 'index' %}">Вернуться на главную страницу</a>
+		</div>
+	</div>
 {% endblock %}

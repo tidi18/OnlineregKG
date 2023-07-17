@@ -5,17 +5,23 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from .models import Member
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from .forms import MemberForm
-from users.views import BlockedUserMixin
+from users.views import BlockedUserMixin, check_blocked
 from .models import Competition
+
+
+@check_blocked
+@login_required
+def member_success(request):
+    return render(request, 'members/member_success.html')
 
 
 class MemberViews(BlockedUserMixin, CreateView):
     model = Member
     form_class = MemberForm
     template_name = 'members/members_registration.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('member_success')
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -60,15 +66,3 @@ class MemberViews(BlockedUserMixin, CreateView):
 
 
 
-        # if str(calculated_age) in age_groups:
-        #     if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
-        #         group = f'{calculated_age}{gender}'
-        #         form.instance.age_group = group
-        #         return super().form_valid(form)
-        #
-        # elif str(calculated_age) not in age_groups:
-        #     if 'A' in age_groups or 'B' in age_groups or 'C' in age_groups or 'D' in age_groups:
-        #         group = f'{abc_group}'
-        #         form.instance.age_group = group
-        #         return super().form_valid(form)
-        #

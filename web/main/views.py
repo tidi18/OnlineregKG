@@ -1,8 +1,6 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.models import Group
-from django.core.cache import cache
 from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from competitions.models import Competition
 from django.views.generic.edit import FormMixin

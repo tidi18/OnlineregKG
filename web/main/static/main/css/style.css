@@ -317,3 +317,27 @@
 #entrance-button a {
 	margin-right: 10px;
 }
+
+#success-message {
+	background-color: white;
+	color: #0047AB;
+	padding: 20px;
+	opacity: 0.8;
+	border-radius: 4px 4px;
+	text-align: center;
+}
+
+#success-message a {
+	margin-top: 20px;
+
+}
+
+#success-message h1 {
+	color: white;
+	background-color: #0047AB;
+	padding: 5px;
+	margin-bottom: 10px;
+	border-radius: 4px 4px;
+	widows: 100%;
+
+}
