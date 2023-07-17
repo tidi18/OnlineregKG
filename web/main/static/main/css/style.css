@@ -17,6 +17,10 @@
 
 }
 
+#form-shell h2 {
+	color: #0047AB;
+}
+
 #form-button {
 	background-color: #0047AB;
 	border-color: #0047AB;
@@ -27,6 +31,39 @@
 #form-button:hover {
 	border-radius: 10px 1px;
 }
+
+
+
+#form-complete form h2 {
+	background-color: #0047AB;
+	color: white;
+	margin-bottom: 30px;
+	padding: 10px;
+	border-radius: 4px 4px;
+
+}
+
+#form-complete form p {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: #0047AB;
+
+
+}
+
+
+#form-complete form a {
+	margin-left: 10px;
+	border-radius: 5px 5px;
+
+}
+
+#form-complete-button {
+	background-color: #0047AB;
+	border-color: #0047AB;
+	margin-bottom: 20px;
+}
+
 
 
 .custom-bg {
