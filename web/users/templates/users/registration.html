@@ -1,13 +1,17 @@
 {% extends 'main/layout.html' %}
+
 {% block title %}регистрация{% endblock %}
+
 {% block body %}
-        <h1>Регистрация пользователя</h1>
-      <div class="control-form container-fluid"> 
-        <form class="form-control" id="form-shell" method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-            <button class="btn btn-primary" id="form-button" type="submit">Регистрация</button>
-            <a class="btn btn-primary" id="form-button" href="{% url 'login' %}">уже есть аккаунт!</a>
-        </form>
-      </div>
+<h1>Регистрация пользователя</h1>
+<div class="control-form container-fluid">
+  <form class="form-control" id="form-shell" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="d-flex justify-content-start" id="entrance-button">
+      <button class="btn btn-primary" id="form-button" type="submit">Регистрация</button>
+      <a class="btn btn-primary ml-2" id="form-button" href="{% url 'login' %}">уже есть аккаунт!</a>
+    </div>
+  </form>
+</div>
 {% endblock %}

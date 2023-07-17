@@ -87,6 +87,10 @@
   color: white;
 }
 
+#index {
+	color: #0047AB;
+}
+
 
 #index-header {
 	background-color: #0047AB;
@@ -115,9 +119,9 @@
 #index-competitions-detail-link {
 	color: white;
 	background-color: #0047AB;
-	padding: 5px;
+	padding: 8px;
 	text-decoration: none;
-	border-radius: 2px 2px;
+	border-radius: 4px 4px;
 	transition: 0.6s;
 }
 
@@ -125,8 +129,17 @@
 	border-radius: 6px 6px;
 }
 
+#index-competitions-detail-link-div h6 {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
 #index-competitions-info {
 	color: #0047AB;
+}
+
+#index-competitions-info h6 {
+	margin-top: 10px;
 }
 
 #index-news-header {

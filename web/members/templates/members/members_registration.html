@@ -6,86 +6,14 @@
         {% if form.abcd_group %}
             <form class="form-control" id="form-shell" method="POST">
                 {% csrf_token %}
+                {{ form.as_p }}
 
-                {% if form.errors %}
-                    <div class="alert alert-danger">
-                        <ul>
-                            {% for field_errors in form.errors.values %}
-                                {% for error in field_errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-
-                <p><label for="{{ form.competition.id_for_label }}">Соревнование:</label>
-                {{ form.competition }}</p>
-
-                <p><label for="{{ form.name.id_for_label }}">Имя:</label>
-                    {{ form.name }}</p>
-
-                <p><label for="{{ form.last_name.id_for_label }}">Фамилия:</label>
-                {{ form.last_name }}</p>
-
-                <p><label for="{{ form.gender.id_for_label }}">Пол:</label>
-                {{ form.gender }}</p>
-
-                <p><label for="{{ form.date_of_birth.id_for_label }}">Дата рождения:</label>
-                {{ form.date_of_birth }}</p>
-
-                <p><label for="{{ form.discharge.id_for_label }}">Разряд:</label>
-                {{ form.discharge }}</p>
-
-                <p><label for="{{ form.team.id_for_label }}">Команда:</label>
-                {{ form.team }}</p>
-
-                <p><label for="{{ form.abcd_group.id_for_label }}">Группа ABCD:</label>
-                {{ form.abcd_group }}</p>
-
-                <p><label for="{{ form.captcha.id_for_label }}">Капча:</label>
-                {{ form.captcha }}</p>
                 <button class="btn btn-primary" id="form-button" type="submit">Отправить</button>
             </form>
         {% else %}
             <form class="form-control" id="form-shell" method="POST">
                 {% csrf_token %}
-
-                {% if form.errors %}
-                    <div class="alert alert-danger">
-                        <ul>
-                            {% for field_errors in form.errors.values %}
-                                {% for error in field_errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-
-                <p><label for="{{ form.competition.id_for_label }}">Соревнование:</label>
-                {{ form.competition }}</p>
-
-                <p><label for="{{ form.name.id_for_label }}">Имя:</label>
-                {{ form.name }}</p>
-
-                <p><label for="{{ form.last_name.id_for_label }}">Фамилия:</label>
-                {{ form.last_name }}</p>
-
-                <p><label for="{{ form.gender.id_for_label }}">Пол:</label>
-                {{ form.gender }}</p>
-
-                <p><label for="{{ form.date_of_birth.id_for_label }}">Дата рождения:</label>
-                {{ form.date_of_birth }}</p>
-
-                <p><label for="{{ form.discharge.id_for_label }}">Разряд:</label>
-                {{ form.discharge }}</p>
-
-                <p><label for="{{ form.team.id_for_label }}">Команда:</label>
-                {{ form.team }}</p>
-
-                <p><label for="{{ form.captcha.id_for_label }}">Капча:</label>
-                {{ form.captcha }}</p>
+                {{ form.as_p }}
 
                 <button class="btn btn-primary" id="form-button" type="submit">Отправить</button>
             </form>
@@ -93,16 +21,40 @@
     </div>
 
     <script>
-        // Получаем поле выбора соревнования
         var competitionField = document.getElementById('id_competition');
+        var form = document.getElementById('form-shell');
+        var hasSubmitted = false;
 
-        // Добавляем обработчик события изменения поля выбора соревнования
         competitionField.addEventListener('change', function() {
-            // Получаем форму
-            var form = document.getElementById('form-bg');
+            if (!hasSubmitted) {
+                hasSubmitted = true;
+                form.submit();
+            }
+        });
 
-            // Отправляем форму
-            form.submit();
+        form.addEventListener('submit', function(event) {
+            if (!hasSubmitted) {
+                event.preventDefault();
+                hasSubmitted = true;
+                form.submit();
+            } else {
+                form.reset();
+                hasSubmitted = false;
+                event.preventDefault();
+                var errorAlert = document.querySelector('.alert-danger');
+                if (errorAlert) {
+                    errorAlert.remove();
+                }
+                if (form.checkValidity()) {
+                    var errorDiv = document.createElement('div');
+                    errorDiv.classList.add('alert', 'alert-danger');
+                    errorDiv.innerHTML = '<ul>{% for field in form %}{% for error in field.errors %}<li>{{ error }}</li>{% endfor %}{% endfor %}</ul>';
+                    var formContainer = document.querySelector('.control-form');
+                    formContainer.insertBefore(errorDiv, form);
+                } else {
+                    form.submit();
+                }
+            }
         });
     </script>
 {% endblock %}
