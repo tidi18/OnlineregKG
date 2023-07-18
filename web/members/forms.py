@@ -1,6 +1,5 @@
 import ast
 from datetime import datetime
-
 from django import forms
 from captcha.fields import CaptchaField
 from .models import Member
