@@ -10,7 +10,7 @@ class MemberForm(forms.ModelForm):
     competition = forms.ModelChoiceField(queryset=Competition.objects.all(), label='Название соревнования', widget=forms.Select(attrs={'class': 'form-control'}))
     name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
     last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    gender = forms.ChoiceField(label='Пол', choices=Member.gender_list, widget=forms.Select(attrs={'class': 'form-input'}))
+    gender = forms.ChoiceField(label='Пол', choices=Member.gender_list, widget=forms.Select(attrs={'class': 'form-input'}), required=True, initial='Не указан')
     date_of_birth = forms.DateField(label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
     discharge = forms.ChoiceField(label='Разряд', choices=Member.discharge_list)
     team = forms.CharField(label='Команда', widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -69,16 +69,14 @@ class MemberForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({"class": "form-control", "autocomplete": "off"})
             self.fields['name'].widget.attrs['placeholder'] = 'Ваше имя'
             self.fields['last_name'].widget.attrs['placeholder'] = 'Ваша фамилия'
-            self.fields['gender'].widget.attrs['placeholder'] = 'Укажите свой пол'
             self.fields['date_of_birth'].widget.attrs['placeholder'] = ''
             self.fields['discharge'].widget.attrs['placeholder'] = ''
             self.fields['team'].widget.attrs['placeholder'] = 'Название вашей команды'
             self.fields['captcha'].widget.attrs.update({"placeholder": 'Напишите текст с картинки'})
 
-            if 'abcd_group' in self.fields:
-                self.fields['abcd_group'].widget.attrs.update({"class": "form-control"})
-                self.fields['abcd_group'].widget.attrs['placeholder'] = 'Выберите группу ABCD'
-                self.fields['abcd_group'].required = False
+            if 'gender' in self.fields:
+                self.fields['gender'].widget.attrs.update({"class": "form-control"})
+                self.fields['gender'].empty_label = 'Не указан'
 
     def get_competition_age_groups(self):
         competition_data = self.data.get('competition')
