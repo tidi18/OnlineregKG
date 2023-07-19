@@ -1,3 +1,4 @@
+import os
 from django import forms
 from captcha.fields import CaptchaField
 from .models import News
@@ -18,21 +19,22 @@ class NewsForm(forms.ModelForm):
     def clean_photo(self):
         photo = self.cleaned_data.get('photo')
         if photo:
-            # Проверяем размер изображения (в байтах). Ограничение: 15 МБ
-            max_size = 15 * 1024 * 1024  # 15 МБ
+            # Check the image size (in bytes). Limit: 15 MB
+            max_size = 15 * 1024 * 1024  # 15 MB
             if photo.size > max_size:
                 raise forms.ValidationError('Пожалуйста, загрузите изображение размером до 15 МБ.')
 
-            # Проверяем расширение изображения
+            # Check the image extension
             allowed_extensions = ['.jpeg', '.jpg', '.png', '.gif', '.bmp', '.tiff', '.svg']
-            file_extension = photo.name.lower().split('.')[-1]
+            file_extension = os.path.splitext(photo.name)[1].lower()
             if file_extension not in allowed_extensions:
-                raise forms.ValidationError('Пожалуйста, загрузите изображение с расширением JPEG, JPG, PNG, GIF, BMP, TIFF или SVG.')
+                raise forms.ValidationError(
+                    'Пожалуйста, загрузите изображение с расширением JPEG, JPG, PNG, GIF, BMP, TIFF или SVG.')
 
-            # Проверяем дополнительно изображение с помощью библиотеки PIL
+            # Additionally, check the image using the PIL library
             try:
                 with Image.open(photo.file) as img:
-                    # Вы можете добавить здесь дополнительные проверки, например, размеры изображения или его разрешение
+                    # You can add additional checks here, such as image dimensions or resolution
                     pass
             except:
                 raise forms.ValidationError('Пожалуйста, загрузите действительное изображение.')

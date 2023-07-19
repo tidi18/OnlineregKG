@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from captcha.fields import CaptchaField
 from PIL import Image
+import os
 
 
 class UserRegisterForm(UserCreationForm):
@@ -84,7 +85,7 @@ class PhotoForm(forms.Form):
 
             # Проверяем расширение изображения
             allowed_extensions = ['.jpeg', '.jpg', '.png', '.gif', '.bmp', '.tiff', '.svg']
-            file_extension = photo.name.lower().split('.')[-1]
+            file_extension = os.path.splitext(photo.name)[1].lower()
             if file_extension not in allowed_extensions:
                 raise forms.ValidationError('Пожалуйста, загрузите изображение с расширением JPEG, JPG, PNG, GIF, BMP, TIFF или SVG.')
 

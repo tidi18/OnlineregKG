@@ -28,10 +28,12 @@ def index(request):
 
 def news(request):
     active_link = 'news'
-    news_data = News.objects.all()
+    news_data = News.objects.order_by('-date')
     return render(request, "main/index.html", {'active_link': active_link, 'news': news_data})
 
 
+@check_blocked
+@login_required
 def profile(request):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
