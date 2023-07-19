@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
 from captcha.fields import CaptchaField
+from PIL import Image
 
 
 class UserRegisterForm(UserCreationForm):
@@ -65,12 +66,37 @@ class UserLoginForm(AuthenticationForm):
                 'autocomplete': 'off'
             })
 
+
 class PhotoForm(forms.Form):
     photo = forms.ImageField(label='Загрузить фотографию')
 
     class Meta:
         model = Profile
         fields = ['photo']
+
+    def clean_photo(self):
+        photo = self.cleaned_data.get('photo')
+        if photo:
+            # Проверяем размер изображения (в байтах). Ограничение: 15 МБ
+            max_size = 15 * 1024 * 1024  # 15 МБ
+            if photo.size > max_size:
+                raise forms.ValidationError('Пожалуйста, загрузите изображение размером до 15 МБ.')
+
+            # Проверяем расширение изображения
+            allowed_extensions = ['.jpeg', '.jpg', '.png', '.gif', '.bmp', '.tiff', '.svg']
+            file_extension = photo.name.lower().split('.')[-1]
+            if file_extension not in allowed_extensions:
+                raise forms.ValidationError('Пожалуйста, загрузите изображение с расширением JPEG, JPG, PNG, GIF, BMP, TIFF или SVG.')
+
+            # Проверяем дополнительно изображение с помощью библиотеки PIL
+            try:
+                with Image.open(photo.file) as img:
+                    # Вы можете добавить здесь дополнительные проверки, например, размеры изображения или его разрешение
+                    pass
+            except:
+                raise forms.ValidationError('Пожалуйста, загрузите действительное изображение.')
+
+        return photo
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

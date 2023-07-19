@@ -1,4 +1,6 @@
+from PIL import Image
 from captcha.fields import CaptchaField
+from django.utils import timezone
 from .models import Competition
 from .models import Comment
 from django import forms
@@ -62,6 +64,38 @@ class CompetitionsForm(forms.ModelForm):
         whatsapp = cleaned_data.get('organizer_whatsapp')
         if not phone and not telegram and not whatsapp:
             self.add_error('organizer_phone', 'Необходимо заполнить хотя бы одно из полей')
+
+    def clean_date(self):
+        date = self.cleaned_data.get('date')
+        if date and date < timezone.now().date():
+            raise forms.ValidationError('Пожалуйста, выберите будущую дату.')
+
+        return date
+
+    def clean_illustration(self):
+        illustration = self.cleaned_data.get('illustration')
+        if illustration:
+            # Проверяем размер изображения (в байтах). Ограничение: 15 МБ
+            max_size = 15 * 1024 * 1024  # 15 МБ
+            if illustration.size > max_size:
+                raise forms.ValidationError('Пожалуйста, загрузите изображение размером до 15 МБ.')
+
+            # Проверяем расширение изображения
+            allowed_extensions = ['.jpeg', '.jpg', '.png', '.gif', '.bmp', '.tiff', '.svg']
+            file_extension = illustration.name.lower().split('.')[-1]
+            if file_extension not in allowed_extensions:
+                raise forms.ValidationError(
+                    'Пожалуйста, загрузите изображение с расширением JPEG, JPG, PNG, GIF, BMP, TIFF или SVG.')
+
+            # Проверяем дополнительно изображение с помощью библиотеки PIL
+            try:
+                with Image.open(illustration.file) as img:
+                    # Вы можете добавить здесь дополнительные проверки, например, размеры изображения или его разрешение
+                    pass
+            except:
+                raise forms.ValidationError('Пожалуйста, загрузите действительное изображение.')
+
+        return illustration
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
