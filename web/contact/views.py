@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .forms import ContactsForm
+from users.views import check_blocked
 
 @login_required
 def contacts(request):
@@ -13,3 +14,7 @@ def contacts(request):
         form = ContactsForm()
     return render(request, 'contact/contacts.html', {'form': form})
 
+@check_blocked
+@login_required
+def become_an_editor(request):
+    return render(request, 'contact/message_become_an_editor')

@@ -13,5 +13,6 @@ urlpatterns = [
     path('editor/update/news/<slug:slug>/', views.editor_update_news, name='editor_update_news'),
     path('editor/delete/news/<int:pk>/', views.editor_delete_news, name='editor_delete_news'),
     path('about', views.about, name='about'),
+    path('message/become/an/editor/', views.become_an_editor, name='become_an_editor')
 
 ]

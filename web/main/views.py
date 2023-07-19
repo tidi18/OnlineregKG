@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
@@ -12,6 +12,12 @@ from users.models import Profile
 from users.views import check_blocked, BlockedUserMixin
 from users.forms import PhotoForm
 import re
+
+
+@check_blocked
+@login_required
+def become_an_editor(request):
+    return render(request, 'main/message_become_an_editor.html')
 
 
 def index(request):
@@ -98,8 +104,6 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
             return redirect('login')
 
 
-
-
 def in_editor_group(user):
     return user.groups.filter(name='editors').exists()
 
@@ -111,7 +115,7 @@ def editors_page(request):
     is_editor = editor_group in user.groups.all()
 
     if not is_editor:
-        return redirect('contact')
+        return redirect('become_an_editor')
 
     competitions = Competition.objects.filter(author=user)
     news = News.objects.filter(author=user)
@@ -130,7 +134,7 @@ def editor_update_competitions(request, slug):
     get_competitions = Competition.objects.get(slug=slug)
 
     if get_competitions.author != request.user:
-        return redirect('contact')
+        return redirect('become_an_editor')
 
     if request.method == 'POST':
         form = CompetitionsForm(request.POST, instance=get_competitions)
@@ -164,7 +168,7 @@ def editor_update_news(request, slug):
     get_news = News.objects.get(slug=slug)
 
     if get_news.author != request.user:
-        return redirect('contact')
+        return redirect('become_an_editor')
 
     if request.method == 'POST':
         form = NewsForm(request.POST, instance=get_news)

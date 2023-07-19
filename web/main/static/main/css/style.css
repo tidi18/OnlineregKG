@@ -346,3 +346,26 @@
 .errorlist {
   color: red;
 }
+
+#message-become-an-editor {
+	background-color: white;
+	color: #0047AB;
+	opacity: 0.8;
+	border-radius: 4px 4px;
+	padding: 5px;
+}
+
+#message-become-an-editor h1 {
+	background-color: #0047AB;
+	color: white;
+	border-radius: 4px 4px;
+	padding: 3px;
+	margin-bottom: 20px;
+}
+
+
+#message-become-an-editor a {
+	margin-top: 20px;
+}
+
+
