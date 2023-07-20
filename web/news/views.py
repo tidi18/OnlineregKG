@@ -12,7 +12,7 @@ class NewsView(BlockedUserMixin, CreateView):
     model = News
     form_class = NewsForm
     template_name = 'news/news.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('editor')
 
     @method_decorator(login_required, name='get')
     def dispatch(self, request, *args, **kwargs):

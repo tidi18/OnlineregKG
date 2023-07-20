@@ -12,7 +12,7 @@ class CompetitionCreateView(BlockedUserMixin, CreateView):
     model = Competition
     form_class = CompetitionsForm
     template_name = 'competitions/competition.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('editor')
 
     @method_decorator(login_required, name='get')
     def dispatch(self, request, *args, **kwargs):

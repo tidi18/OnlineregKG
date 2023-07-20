@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
@@ -13,7 +14,7 @@ def check_blocked(view_func):
         if request.user.is_authenticated:
             profile = Profile.objects.get(user=request.user)
             if profile.is_blocked:
-                return HttpResponse('Вы заблокированы. Пожалуйста, свяжитесь с администратором. Отправьте сообщение в разделе контакты!')
+                return redirect('blocked')
 
         return view_func(request, *args, **kwargs)
     return wrapper
@@ -24,7 +25,7 @@ class BlockedUserMixin:
         if request.user.is_authenticated:
             profile = Profile.objects.get(user=request.user)
             if profile.is_blocked:
-                return HttpResponse('Вы заблокированы. Пожалуйста, свяжитесь с администратором. Отправьте сообщение в разделе контакты!')
+                return redirect('blocked')
         return super().dispatch(request, *args, **kwargs)
 
 

@@ -84,6 +84,7 @@
 
 .container {
   margin-top: 100px;
+  margin-bottom: 100px;
   color: white;
 }
 
@@ -117,6 +118,7 @@
 
 
 #index-competitions-detail-link {
+	white-space: nowrap;
 	color: white;
 	background-color: #0047AB;
 	padding: 8px;
@@ -216,11 +218,15 @@
 	opacity: 0.8;
 }
 
-#detail-cmpetitions-header {
+#detail-competitions-header {
 	color: white;
 	background-color: #0047AB;
 	padding: 5px;
 	border-radius: 3px 3px;
+}
+
+#detail-competitions-header h2 {
+	overflow-wrap: break-word;
 }
 
 #detail-competition-illustration {

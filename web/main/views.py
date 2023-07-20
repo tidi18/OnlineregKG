@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import Group
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView
 from competitions.models import Competition
 from django.views.generic.edit import FormMixin
@@ -19,13 +19,13 @@ import re
 def become_an_editor(request):
     return render(request, 'main/message_become_an_editor.html')
 
-
+@check_blocked
 def index(request):
     active_link = 'competitions'
     competitions_data = Competition.objects.order_by('-create_date')
     return render(request, "main/index.html", {'active_link': active_link, 'competitions': competitions_data})
 
-
+@check_blocked
 def news(request):
     active_link = 'news'
     news_data = News.objects.order_by('-date')
@@ -46,13 +46,11 @@ def profile(request):
 
 def change_photo(request):
     if request.method == 'POST':
-        # Получите новую фотографию из запроса и выполните необходимые действия
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             profile = request.user.profile
             profile.photo = form.cleaned_data['photo']
             profile.save()
-            # Перенаправьте пользователя на страницу профиля после изменения фотографии
             return redirect('profile')
     else:
         form = PhotoForm()
@@ -69,8 +67,8 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
     form_class = CommentForm
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
-    login_url = '/login/'  # Путь к странице входа
-    redirect_field_name = 'next'  # Поле для сохранения URL-адреса перенаправления
+    login_url = '/login/'
+    redirect_field_name = 'next'
 
     def has_profanity(self, text):
         pattern = r"(?iu)\b((у|[нз]а|(хитро|не)?вз?[ыьъ]|с[ьъ]|(и|ра)[зс]ъ?|(о[тб]|под)[ьъ]?|(.\B)+?[оаеи])?-?([её]б(?!о[рй])|и[пб][ае][тц]).*?|(н[иеа]|([дп]|верт)о|ра[зс]|з?а|с(ме)?|о(т|дно)?|апч)?-?ху([яйиеёю]|ли(?!ган)).*?|(в[зы]|(три|два|четыре)жды|(н|сук)а)?-?бл(я(?!(х|ш[кн]|мб)[ауеыио]).*?|[еэ][дт]ь?)|(ра[сз]|[зн]а|[со]|вы?|п(ере|р[оие]|од)|и[зс]ъ?|[ао]т)?п[иеё]зд.*?|(за)?п[ие]д[аое]?р([оа]м|(ас)?(ну.*?|и(ли)?[нщктл]ь?)?|(о(ч[еи])?|ас)?к(ой)|юг)[ауеы]?|манд([ауеыи](л(и[сзщ])?[ауеиы])?|ой|[ао]вошь?(е?к[ауе])?|юк(ов|[ауи])?)|муд([яаио].*?|е?н([ьюия]|ей))|мля([тд]ь)?|лять|([нз]а|по)х|м[ао]л[ао]фь([яию]|[еёо]й))\b"
@@ -82,16 +80,16 @@ class CompetitionDetailView(BlockedUserMixin, FormMixin, DetailView):
         return False
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()  # Получаем объект Competition
+        self.object = self.get_object()
         form = CommentForm(request.POST)
         comment_text = request.POST.get('text', '')
         has_profanity = self.has_profanity(comment_text)
 
-        if request.user.is_authenticated:  # Проверка аутентификации пользователя
+        if request.user.is_authenticated:
             if form.is_valid() and not has_profanity:
                 comment = form.save(commit=False)
                 comment.competition = self.object
-                comment.author = self.request.user  # Присваиваем аутентифицированного пользователя
+                comment.author = self.request.user
                 comment.save()
                 return redirect('competition_detail', slug=self.object.slug)
             else:
@@ -132,20 +130,19 @@ def editors_page(request):
 
 @check_blocked
 @user_passes_test(in_editor_group)
-def editor_update_competitions(request, slug):
-    get_competitions = Competition.objects.get(slug=slug)
+def editor_update_competitions(request, pk):
+    get_competitions = get_object_or_404(Competition, pk=pk)
 
-    if get_competitions.author != request.user:
+    if request.user != get_competitions.author:
         return redirect('become_an_editor')
 
     if request.method == 'POST':
-        form = CompetitionsForm(request.POST, instance=get_competitions)
+        form = CompetitionsForm(request.POST, request.FILES, instance=get_competitions)
         if form.is_valid():
             form.save()
             return redirect('editor')
-
     else:
-        form = CompetitionsForm(instance=get_competitions, initial={'date': get_competitions.date})
+        form = CompetitionsForm(instance=get_competitions)
 
     context = {
         'form': form,
@@ -166,19 +163,20 @@ def editor_delete_competitions(request, pk):
 
 @check_blocked
 @user_passes_test(in_editor_group)
-def editor_update_news(request, slug):
-    get_news = News.objects.get(slug=slug)
+def editor_update_news(request, pk):
+    get_news = get_object_or_404(News, pk=pk)
 
-    if get_news.author != request.user:
+    if request.user != get_news.author:
         return redirect('become_an_editor')
 
     if request.method == 'POST':
-        form = NewsForm(request.POST, instance=get_news)
+        form = NewsForm(request.POST, request.FILES, instance=get_news)
         if form.is_valid():
             form.save()
             return redirect('editor')
     else:
-        form = NewsForm(instance=get_news, initial={'date': get_news.date})
+        form = NewsForm(instance=get_news)
+
     context = {
         'form': form,
         'get_news': get_news,
@@ -186,6 +184,7 @@ def editor_update_news(request, slug):
         'title': 'Форма редактирования новостей'
     }
     return render(request, 'main/editor.html', context)
+
 
 
 @check_blocked
